@@ -1,0 +1,2853 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 924px;
+            height: 564px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Adm_level_2_WestAfrica_0.js"></script>
+        <script src="data/Africa_1.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-8.895968542250511,-37.84120898589509],[27.715273300869786,22.222073895522893]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_Adm_level_2_WestAfrica_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID_1'] !== null ? autolinker.link(feature.properties['OBJECTID_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['admin0Name'] !== null ? autolinker.link(feature.properties['admin0Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['admin0Pcod'] !== null ? autolinker.link(feature.properties['admin0Pcod'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>admin1Name</strong><br />' + (feature.properties['admin1Name'] !== null ? autolinker.link(feature.properties['admin1Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>admin2Name</strong><br />' + (feature.properties['admin2Name'] !== null ? autolinker.link(feature.properties['admin2Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['admin1Pcod'] !== null ? autolinker.link(feature.properties['admin1Pcod'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['admin2Pcod'] !== null ? autolinker.link(feature.properties['admin2Pcod'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CtryPcod_a'] !== null ? autolinker.link(feature.properties['CtryPcod_a'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CtryPcod_1'] !== null ? autolinker.link(feature.properties['CtryPcod_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Le_1'] !== null ? autolinker.link(feature.properties['Shape_Le_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Le_2'] !== null ? autolinker.link(feature.properties['Shape_Le_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SD_AM2'] !== null ? autolinker.link(feature.properties['SD_AM2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_AG2_ma'] !== null ? autolinker.link(feature.properties['Rat_AG2_ma'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_AG2_so'] !== null ? autolinker.link(feature.properties['Rat_AG2_so'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_AG2_ya'] !== null ? autolinker.link(feature.properties['Rat_AG2_ya'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_AG2_mi'] !== null ? autolinker.link(feature.properties['Rat_AG2_mi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Adm_level_2_WestAfrica_0_0() {
+            return {
+                pane: 'pane_Adm_level_2_WestAfrica_0',
+                opacity: 1,
+                color: 'rgba(61,46,46,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(145,82,45,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Adm_level_2_WestAfrica_0');
+        map.getPane('pane_Adm_level_2_WestAfrica_0').style.zIndex = 400;
+        map.getPane('pane_Adm_level_2_WestAfrica_0').style['mix-blend-mode'] = 'normal';
+        var layer_Adm_level_2_WestAfrica_0 = new L.geoJson(json_Adm_level_2_WestAfrica_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Adm_level_2_WestAfrica_0',
+            layerName: 'layer_Adm_level_2_WestAfrica_0',
+            pane: 'pane_Adm_level_2_WestAfrica_0',
+            onEachFeature: pop_Adm_level_2_WestAfrica_0,
+            style: style_Adm_level_2_WestAfrica_0_0,
+        });
+        bounds_group.addLayer(layer_Adm_level_2_WestAfrica_0);
+        map.addLayer(layer_Adm_level_2_WestAfrica_0);
+        function pop_Africa_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODE'] !== null ? autolinker.link(feature.properties['CODE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COUNTRY</th>\
+                        <td>' + (feature.properties['COUNTRY'] !== null ? autolinker.link(feature.properties['COUNTRY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SD_USDA_re'] !== null ? autolinker.link(feature.properties['SD_USDA_re'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_FS_mi'] !== null ? autolinker.link(feature.properties['Rat_FS_mi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_FS_ya'] !== null ? autolinker.link(feature.properties['Rat_FS_ya'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_FS_so'] !== null ? autolinker.link(feature.properties['Rat_FS_so'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_FS_ma'] !== null ? autolinker.link(feature.properties['Rat_FS_ma'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rat_FS_ca'] !== null ? autolinker.link(feature.properties['Rat_FS_ca'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Africa_1_0(feature) {
+            switch(String(feature.properties['COUNTRY'])) {
+                case 'Algeria':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(143,226,112,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Angola':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,20,56,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Benin':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(29,198,213,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Botswana':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(80,207,205,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Burkina Faso':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(239,200,100,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Burundi':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,137,73,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Cameroon':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,186,110,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Cape Verde':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(123,179,205,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Central African Republic':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(112,153,230,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Chad':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(230,107,173,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Comoros':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,202,119,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Congo-Brazzaville':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,17,211,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Cote d\'Ivoire':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,51,24,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Democratic Republic of Congo':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,79,207,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Djibouti':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,67,206,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Egypt':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,67,206,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Equatorial Guinea':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(132,207,57,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Eritrea':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,216,88,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Ethiopia':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(113,230,39,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Gabon':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(124,97,223,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Gambia':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(99,84,232,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Ghana':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(126,215,172,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Guinea':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(165,132,230,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Guinea-Bissau':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(236,163,136,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Kenya':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(73,221,184,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Lesotho':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,223,13,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Liberia':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,64,75,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Libya':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(108,134,219,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Madagascar':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,211,102,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Malawi':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(45,220,97,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Mali':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(45,220,97,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Mauritania':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,214,89,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Morocco':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,68,116,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Mozambique':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(202,54,218,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Namibia':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(38,225,50,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Niger':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,218,72,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Nigeria':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(205,79,205,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Rwanda':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(73,139,214,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Sao Tome and Principe':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(162,108,229,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Senegal':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(200,40,34,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Sierra Leone':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,206,24,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Somalia':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(235,61,174,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'South Africa':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(118,169,208,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Sudan':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(92,106,215,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Swaziland':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,131,232,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Tanzania':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(69,212,193,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Togo':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(94,196,221,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Tunisia':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(33,235,117,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Uganda':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(81,211,58,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Western Sahara':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(180,207,44,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Zambia':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(80,239,181,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                case 'Zimbabwe':
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(224,68,136,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Africa_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.27699999999999997)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,130,236,0.27699999999999997)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Africa_1');
+        map.getPane('pane_Africa_1').style.zIndex = 401;
+        map.getPane('pane_Africa_1').style['mix-blend-mode'] = 'normal';
+        var layer_Africa_1 = new L.geoJson(json_Africa_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Africa_1',
+            layerName: 'layer_Africa_1',
+            pane: 'pane_Africa_1',
+            onEachFeature: pop_Africa_1,
+            style: style_Africa_1_0,
+        });
+        bounds_group.addLayer(layer_Africa_1);
+        map.addLayer(layer_Africa_1);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_Adm_level_2_WestAfrica_0,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'admin2Name'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"SD_AM2": "real","CtryPcod_1": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_SD_AM2 = document.createElement("div");
+            div_SD_AM2.id = "div_SD_AM2";
+            div_SD_AM2.className = "slider";
+            document.getElementById("menu").appendChild(div_SD_AM2);
+            var lab_SD_AM2 = document.createElement('div');
+            lab_SD_AM2.innerHTML  = 'SD_AM2: <span id="val_SD_AM2"></span>';
+            lab_SD_AM2.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_SD_AM2);
+            var reset_SD_AM2 = document.createElement('div');
+            reset_SD_AM2.innerHTML = 'clear filter';
+            reset_SD_AM2.className = 'filterlabel';
+            lab_SD_AM2.className = 'filterlabel';
+            reset_SD_AM2.onclick = function() {
+                sel_SD_AM2.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_SD_AM2);
+            var sel_SD_AM2 = document.getElementById('div_SD_AM2');
+            noUiSlider.create(sel_SD_AM2, {
+                connect: true,
+                start: [0.153403, 1.2230753],
+                range: {
+                min: 0.153403,
+                max: 1.2230753
+                }
+            });
+            sel_SD_AM2.noUiSlider.on('update', function (values) {
+            val_SD_AM2 = document.getElementById('val_SD_AM2');
+            val_SD_AM2.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_CtryPcod_1 = document.createElement('div');
+            div_CtryPcod_1.id = "div_CtryPcod_1";
+            div_CtryPcod_1.className= "filterselect";
+            document.getElementById("menu").appendChild(div_CtryPcod_1);
+            sel_CtryPcod_1 = document.createElement('select');
+            sel_CtryPcod_1.multiple = true;
+            sel_CtryPcod_1.size = 10;
+            sel_CtryPcod_1.id = "sel_CtryPcod_1";
+            var CtryPcod_1_options_str = "<option value='' unselected></option>";
+            sel_CtryPcod_1.onchange = function(){filterFunc()};
+            CtryPcod_1_options_str  += '<option value="BF1300">BF1300</option>';
+            CtryPcod_1_options_str  += '<option value="BF4601">BF4601</option>';
+            CtryPcod_1_options_str  += '<option value="BF4602">BF4602</option>';
+            CtryPcod_1_options_str  += '<option value="BF4603">BF4603</option>';
+            CtryPcod_1_options_str  += '<option value="BF4604">BF4604</option>';
+            CtryPcod_1_options_str  += '<option value="BF4605">BF4605</option>';
+            CtryPcod_1_options_str  += '<option value="BF4606">BF4606</option>';
+            CtryPcod_1_options_str  += '<option value="BF4701">BF4701</option>';
+            CtryPcod_1_options_str  += '<option value="BF4702">BF4702</option>';
+            CtryPcod_1_options_str  += '<option value="BF4801">BF4801</option>';
+            CtryPcod_1_options_str  += '<option value="BF4802">BF4802</option>';
+            CtryPcod_1_options_str  += '<option value="BF4803">BF4803</option>';
+            CtryPcod_1_options_str  += '<option value="BF4901">BF4901</option>';
+            CtryPcod_1_options_str  += '<option value="BF4902">BF4902</option>';
+            CtryPcod_1_options_str  += '<option value="BF4903">BF4903</option>';
+            CtryPcod_1_options_str  += '<option value="BF5001">BF5001</option>';
+            CtryPcod_1_options_str  += '<option value="BF5002">BF5002</option>';
+            CtryPcod_1_options_str  += '<option value="BF5003">BF5003</option>';
+            CtryPcod_1_options_str  += '<option value="BF5004">BF5004</option>';
+            CtryPcod_1_options_str  += '<option value="BF5101">BF5101</option>';
+            CtryPcod_1_options_str  += '<option value="BF5102">BF5102</option>';
+            CtryPcod_1_options_str  += '<option value="BF5103">BF5103</option>';
+            CtryPcod_1_options_str  += '<option value="BF5201">BF5201</option>';
+            CtryPcod_1_options_str  += '<option value="BF5202">BF5202</option>';
+            CtryPcod_1_options_str  += '<option value="BF5203">BF5203</option>';
+            CtryPcod_1_options_str  += '<option value="BF5204">BF5204</option>';
+            CtryPcod_1_options_str  += '<option value="BF5205">BF5205</option>';
+            CtryPcod_1_options_str  += '<option value="BF5301">BF5301</option>';
+            CtryPcod_1_options_str  += '<option value="BF5302">BF5302</option>';
+            CtryPcod_1_options_str  += '<option value="BF5303">BF5303</option>';
+            CtryPcod_1_options_str  += '<option value="BF5401">BF5401</option>';
+            CtryPcod_1_options_str  += '<option value="BF5402">BF5402</option>';
+            CtryPcod_1_options_str  += '<option value="BF5403">BF5403</option>';
+            CtryPcod_1_options_str  += '<option value="BF5404">BF5404</option>';
+            CtryPcod_1_options_str  += '<option value="BF5501">BF5501</option>';
+            CtryPcod_1_options_str  += '<option value="BF5502">BF5502</option>';
+            CtryPcod_1_options_str  += '<option value="BF5503">BF5503</option>';
+            CtryPcod_1_options_str  += '<option value="BF5601">BF5601</option>';
+            CtryPcod_1_options_str  += '<option value="BF5602">BF5602</option>';
+            CtryPcod_1_options_str  += '<option value="BF5603">BF5603</option>';
+            CtryPcod_1_options_str  += '<option value="BF5604">BF5604</option>';
+            CtryPcod_1_options_str  += '<option value="BF5701">BF5701</option>';
+            CtryPcod_1_options_str  += '<option value="BF5702">BF5702</option>';
+            CtryPcod_1_options_str  += '<option value="BF5703">BF5703</option>';
+            CtryPcod_1_options_str  += '<option value="BF5704">BF5704</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0101">BJ0101</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0102">BJ0102</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0103">BJ0103</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0104">BJ0104</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0105">BJ0105</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0106">BJ0106</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0201">BJ0201</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0202">BJ0202</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0203">BJ0203</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0204">BJ0204</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0205">BJ0205</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0206">BJ0206</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0207">BJ0207</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0208">BJ0208</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0209">BJ0209</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0301">BJ0301</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0302">BJ0302</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0303">BJ0303</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0304">BJ0304</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0305">BJ0305</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0306">BJ0306</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0307">BJ0307</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0308">BJ0308</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0401">BJ0401</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0402">BJ0402</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0403">BJ0403</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0404">BJ0404</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0405">BJ0405</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0406">BJ0406</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0407">BJ0407</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0408">BJ0408</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0501">BJ0501</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0502">BJ0502</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0503">BJ0503</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0504">BJ0504</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0505">BJ0505</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0506">BJ0506</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0601">BJ0601</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0602">BJ0602</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0603">BJ0603</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0604">BJ0604</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0605">BJ0605</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0606">BJ0606</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0701">BJ0701</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0702">BJ0702</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0703">BJ0703</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0704">BJ0704</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0800">BJ0800</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0901">BJ0901</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0902">BJ0902</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0903">BJ0903</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0904">BJ0904</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0905">BJ0905</option>';
+            CtryPcod_1_options_str  += '<option value="BJ0906">BJ0906</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1001">BJ1001</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1002">BJ1002</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1003">BJ1003</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1004">BJ1004</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1005">BJ1005</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1006">BJ1006</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1007">BJ1007</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1008">BJ1008</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1009">BJ1009</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1101">BJ1101</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1102">BJ1102</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1103">BJ1103</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1104">BJ1104</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1105">BJ1105</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1201">BJ1201</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1202">BJ1202</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1203">BJ1203</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1204">BJ1204</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1205">BJ1205</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1206">BJ1206</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1207">BJ1207</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1208">BJ1208</option>';
+            CtryPcod_1_options_str  += '<option value="BJ1209">BJ1209</option>';
+            CtryPcod_1_options_str  += '<option value="CI0101">CI0101</option>';
+            CtryPcod_1_options_str  += '<option value="CI0201">CI0201</option>';
+            CtryPcod_1_options_str  += '<option value="CI0202">CI0202</option>';
+            CtryPcod_1_options_str  += '<option value="CI0401">CI0401</option>';
+            CtryPcod_1_options_str  += '<option value="CI0402">CI0402</option>';
+            CtryPcod_1_options_str  += '<option value="CI0403">CI0403</option>';
+            CtryPcod_1_options_str  += '<option value="CI0501">CI0501</option>';
+            CtryPcod_1_options_str  += '<option value="CI0502">CI0502</option>';
+            CtryPcod_1_options_str  += '<option value="CI0503">CI0503</option>';
+            CtryPcod_1_options_str  += '<option value="CI0601">CI0601</option>';
+            CtryPcod_1_options_str  += '<option value="CI0602">CI0602</option>';
+            CtryPcod_1_options_str  += '<option value="CI0603">CI0603</option>';
+            CtryPcod_1_options_str  += '<option value="CI0604">CI0604</option>';
+            CtryPcod_1_options_str  += '<option value="CI0701">CI0701</option>';
+            CtryPcod_1_options_str  += '<option value="CI0702">CI0702</option>';
+            CtryPcod_1_options_str  += '<option value="CI0703">CI0703</option>';
+            CtryPcod_1_options_str  += '<option value="CI0801">CI0801</option>';
+            CtryPcod_1_options_str  += '<option value="CI0802">CI0802</option>';
+            CtryPcod_1_options_str  += '<option value="CI0803">CI0803</option>';
+            CtryPcod_1_options_str  += '<option value="CI0804">CI0804</option>';
+            CtryPcod_1_options_str  += '<option value="CI0903">CI0903</option>';
+            CtryPcod_1_options_str  += '<option value="CI1001">CI1001</option>';
+            CtryPcod_1_options_str  += '<option value="CI1002">CI1002</option>';
+            CtryPcod_1_options_str  += '<option value="CI1101">CI1101</option>';
+            CtryPcod_1_options_str  += '<option value="CI1102">CI1102</option>';
+            CtryPcod_1_options_str  += '<option value="CI1103">CI1103</option>';
+            CtryPcod_1_options_str  += '<option value="CI1201">CI1201</option>';
+            CtryPcod_1_options_str  += '<option value="CI1202">CI1202</option>';
+            CtryPcod_1_options_str  += '<option value="CI1301">CI1301</option>';
+            CtryPcod_1_options_str  += '<option value="CI1302">CI1302</option>';
+            CtryPcod_1_options_str  += '<option value="CI1303">CI1303</option>';
+            CtryPcod_1_options_str  += '<option value="CI1304">CI1304</option>';
+            CtryPcod_1_options_str  += '<option value="CI1401">CI1401</option>';
+            CtryPcod_1_options_str  += '<option value="CI1402">CI1402</option>';
+            CtryPcod_1_options_str  += '<option value="CI1403">CI1403</option>';
+            CtryPcod_1_options_str  += '<option value="CI1404">CI1404</option>';
+            CtryPcod_1_options_str  += '<option value="CI1405">CI1405</option>';
+            CtryPcod_1_options_str  += '<option value="CI1501">CI1501</option>';
+            CtryPcod_1_options_str  += '<option value="CI1502">CI1502</option>';
+            CtryPcod_1_options_str  += '<option value="CI1503">CI1503</option>';
+            CtryPcod_1_options_str  += '<option value="CI1601">CI1601</option>';
+            CtryPcod_1_options_str  += '<option value="CI1602">CI1602</option>';
+            CtryPcod_1_options_str  += '<option value="CI1603">CI1603</option>';
+            CtryPcod_1_options_str  += '<option value="CI1604">CI1604</option>';
+            CtryPcod_1_options_str  += '<option value="CI1701">CI1701</option>';
+            CtryPcod_1_options_str  += '<option value="CI1702">CI1702</option>';
+            CtryPcod_1_options_str  += '<option value="CI1703">CI1703</option>';
+            CtryPcod_1_options_str  += '<option value="CI1801">CI1801</option>';
+            CtryPcod_1_options_str  += '<option value="CI1802">CI1802</option>';
+            CtryPcod_1_options_str  += '<option value="CI1803">CI1803</option>';
+            CtryPcod_1_options_str  += '<option value="CI1804">CI1804</option>';
+            CtryPcod_1_options_str  += '<option value="CI1901">CI1901</option>';
+            CtryPcod_1_options_str  += '<option value="CI1902">CI1902</option>';
+            CtryPcod_1_options_str  += '<option value="CI1903">CI1903</option>';
+            CtryPcod_1_options_str  += '<option value="CI2001">CI2001</option>';
+            CtryPcod_1_options_str  += '<option value="CI2002">CI2002</option>';
+            CtryPcod_1_options_str  += '<option value="CI2003">CI2003</option>';
+            CtryPcod_1_options_str  += '<option value="CI2101">CI2101</option>';
+            CtryPcod_1_options_str  += '<option value="CI2102">CI2102</option>';
+            CtryPcod_1_options_str  += '<option value="CI2103">CI2103</option>';
+            CtryPcod_1_options_str  += '<option value="CI2104">CI2104</option>';
+            CtryPcod_1_options_str  += '<option value="CI2105">CI2105</option>';
+            CtryPcod_1_options_str  += '<option value="CI2201">CI2201</option>';
+            CtryPcod_1_options_str  += '<option value="CI2202">CI2202</option>';
+            CtryPcod_1_options_str  += '<option value="CI2203">CI2203</option>';
+            CtryPcod_1_options_str  += '<option value="CI2301">CI2301</option>';
+            CtryPcod_1_options_str  += '<option value="CI2302">CI2302</option>';
+            CtryPcod_1_options_str  += '<option value="CI2303">CI2303</option>';
+            CtryPcod_1_options_str  += '<option value="CI2401">CI2401</option>';
+            CtryPcod_1_options_str  += '<option value="CI2402">CI2402</option>';
+            CtryPcod_1_options_str  += '<option value="CI2403">CI2403</option>';
+            CtryPcod_1_options_str  += '<option value="CI2404">CI2404</option>';
+            CtryPcod_1_options_str  += '<option value="CI2501">CI2501</option>';
+            CtryPcod_1_options_str  += '<option value="CI2502">CI2502</option>';
+            CtryPcod_1_options_str  += '<option value="CI2503">CI2503</option>';
+            CtryPcod_1_options_str  += '<option value="CI2601">CI2601</option>';
+            CtryPcod_1_options_str  += '<option value="CI2602">CI2602</option>';
+            CtryPcod_1_options_str  += '<option value="CI2603">CI2603</option>';
+            CtryPcod_1_options_str  += '<option value="CI2604">CI2604</option>';
+            CtryPcod_1_options_str  += '<option value="CI2701">CI2701</option>';
+            CtryPcod_1_options_str  += '<option value="CI2702">CI2702</option>';
+            CtryPcod_1_options_str  += '<option value="CI2703">CI2703</option>';
+            CtryPcod_1_options_str  += '<option value="CI2801">CI2801</option>';
+            CtryPcod_1_options_str  += '<option value="CI2802">CI2802</option>';
+            CtryPcod_1_options_str  += '<option value="CI2803">CI2803</option>';
+            CtryPcod_1_options_str  += '<option value="CI2804">CI2804</option>';
+            CtryPcod_1_options_str  += '<option value="CI2901">CI2901</option>';
+            CtryPcod_1_options_str  += '<option value="CI2902">CI2902</option>';
+            CtryPcod_1_options_str  += '<option value="CI3001">CI3001</option>';
+            CtryPcod_1_options_str  += '<option value="CI3002">CI3002</option>';
+            CtryPcod_1_options_str  += '<option value="CI3003">CI3003</option>';
+            CtryPcod_1_options_str  += '<option value="CI3004">CI3004</option>';
+            CtryPcod_1_options_str  += '<option value="CI3101">CI3101</option>';
+            CtryPcod_1_options_str  += '<option value="CI3102">CI3102</option>';
+            CtryPcod_1_options_str  += '<option value="CI3103">CI3103</option>';
+            CtryPcod_1_options_str  += '<option value="CI3201">CI3201</option>';
+            CtryPcod_1_options_str  += '<option value="CI3202">CI3202</option>';
+            CtryPcod_1_options_str  += '<option value="CI3203">CI3203</option>';
+            CtryPcod_1_options_str  += '<option value="CI3204">CI3204</option>';
+            CtryPcod_1_options_str  += '<option value="CI3205">CI3205</option>';
+            CtryPcod_1_options_str  += '<option value="CI3301">CI3301</option>';
+            CtryPcod_1_options_str  += '<option value="GH2401">GH2401</option>';
+            CtryPcod_1_options_str  += '<option value="GH2402">GH2402</option>';
+            CtryPcod_1_options_str  += '<option value="GH2403">GH2403</option>';
+            CtryPcod_1_options_str  += '<option value="GH2404">GH2404</option>';
+            CtryPcod_1_options_str  += '<option value="GH2405">GH2405</option>';
+            CtryPcod_1_options_str  += '<option value="GH2406">GH2406</option>';
+            CtryPcod_1_options_str  += '<option value="GH2407">GH2407</option>';
+            CtryPcod_1_options_str  += '<option value="GH2408">GH2408</option>';
+            CtryPcod_1_options_str  += '<option value="GH2409">GH2409</option>';
+            CtryPcod_1_options_str  += '<option value="GH2410">GH2410</option>';
+            CtryPcod_1_options_str  += '<option value="GH2411">GH2411</option>';
+            CtryPcod_1_options_str  += '<option value="GH2412">GH2412</option>';
+            CtryPcod_1_options_str  += '<option value="GH2413">GH2413</option>';
+            CtryPcod_1_options_str  += '<option value="GH2414">GH2414</option>';
+            CtryPcod_1_options_str  += '<option value="GH2415">GH2415</option>';
+            CtryPcod_1_options_str  += '<option value="GH2416">GH2416</option>';
+            CtryPcod_1_options_str  += '<option value="GH2417">GH2417</option>';
+            CtryPcod_1_options_str  += '<option value="GH2418">GH2418</option>';
+            CtryPcod_1_options_str  += '<option value="GH2419">GH2419</option>';
+            CtryPcod_1_options_str  += '<option value="GH2420">GH2420</option>';
+            CtryPcod_1_options_str  += '<option value="GH2421">GH2421</option>';
+            CtryPcod_1_options_str  += '<option value="GH2501">GH2501</option>';
+            CtryPcod_1_options_str  += '<option value="GH2502">GH2502</option>';
+            CtryPcod_1_options_str  += '<option value="GH2503">GH2503</option>';
+            CtryPcod_1_options_str  += '<option value="GH2504">GH2504</option>';
+            CtryPcod_1_options_str  += '<option value="GH2505">GH2505</option>';
+            CtryPcod_1_options_str  += '<option value="GH2506">GH2506</option>';
+            CtryPcod_1_options_str  += '<option value="GH2507">GH2507</option>';
+            CtryPcod_1_options_str  += '<option value="GH2508">GH2508</option>';
+            CtryPcod_1_options_str  += '<option value="GH2509">GH2509</option>';
+            CtryPcod_1_options_str  += '<option value="GH2510">GH2510</option>';
+            CtryPcod_1_options_str  += '<option value="GH2511">GH2511</option>';
+            CtryPcod_1_options_str  += '<option value="GH2512">GH2512</option>';
+            CtryPcod_1_options_str  += '<option value="GH2513">GH2513</option>';
+            CtryPcod_1_options_str  += '<option value="GH2514">GH2514</option>';
+            CtryPcod_1_options_str  += '<option value="GH2515">GH2515</option>';
+            CtryPcod_1_options_str  += '<option value="GH2516">GH2516</option>';
+            CtryPcod_1_options_str  += '<option value="GH2517">GH2517</option>';
+            CtryPcod_1_options_str  += '<option value="GH2518">GH2518</option>';
+            CtryPcod_1_options_str  += '<option value="GH2519">GH2519</option>';
+            CtryPcod_1_options_str  += '<option value="GH2601">GH2601</option>';
+            CtryPcod_1_options_str  += '<option value="GH2602">GH2602</option>';
+            CtryPcod_1_options_str  += '<option value="GH2603">GH2603</option>';
+            CtryPcod_1_options_str  += '<option value="GH2604">GH2604</option>';
+            CtryPcod_1_options_str  += '<option value="GH2605">GH2605</option>';
+            CtryPcod_1_options_str  += '<option value="GH2606">GH2606</option>';
+            CtryPcod_1_options_str  += '<option value="GH2607">GH2607</option>';
+            CtryPcod_1_options_str  += '<option value="GH2608">GH2608</option>';
+            CtryPcod_1_options_str  += '<option value="GH2609">GH2609</option>';
+            CtryPcod_1_options_str  += '<option value="GH2610">GH2610</option>';
+            CtryPcod_1_options_str  += '<option value="GH2611">GH2611</option>';
+            CtryPcod_1_options_str  += '<option value="GH2612">GH2612</option>';
+            CtryPcod_1_options_str  += '<option value="GH2613">GH2613</option>';
+            CtryPcod_1_options_str  += '<option value="GH2701">GH2701</option>';
+            CtryPcod_1_options_str  += '<option value="GH2702">GH2702</option>';
+            CtryPcod_1_options_str  += '<option value="GH2703">GH2703</option>';
+            CtryPcod_1_options_str  += '<option value="GH2704">GH2704</option>';
+            CtryPcod_1_options_str  += '<option value="GH2705">GH2705</option>';
+            CtryPcod_1_options_str  += '<option value="GH2706">GH2706</option>';
+            CtryPcod_1_options_str  += '<option value="GH2707">GH2707</option>';
+            CtryPcod_1_options_str  += '<option value="GH2708">GH2708</option>';
+            CtryPcod_1_options_str  += '<option value="GH2709">GH2709</option>';
+            CtryPcod_1_options_str  += '<option value="GH2710">GH2710</option>';
+            CtryPcod_1_options_str  += '<option value="GH2711">GH2711</option>';
+            CtryPcod_1_options_str  += '<option value="GH2712">GH2712</option>';
+            CtryPcod_1_options_str  += '<option value="GH2713">GH2713</option>';
+            CtryPcod_1_options_str  += '<option value="GH2714">GH2714</option>';
+            CtryPcod_1_options_str  += '<option value="GH2715">GH2715</option>';
+            CtryPcod_1_options_str  += '<option value="GH2716">GH2716</option>';
+            CtryPcod_1_options_str  += '<option value="GH2717">GH2717</option>';
+            CtryPcod_1_options_str  += '<option value="GH2801">GH2801</option>';
+            CtryPcod_1_options_str  += '<option value="GH2802">GH2802</option>';
+            CtryPcod_1_options_str  += '<option value="GH2803">GH2803</option>';
+            CtryPcod_1_options_str  += '<option value="GH2804">GH2804</option>';
+            CtryPcod_1_options_str  += '<option value="GH2805">GH2805</option>';
+            CtryPcod_1_options_str  += '<option value="GH2806">GH2806</option>';
+            CtryPcod_1_options_str  += '<option value="GH2901">GH2901</option>';
+            CtryPcod_1_options_str  += '<option value="GH2902">GH2902</option>';
+            CtryPcod_1_options_str  += '<option value="GH2903">GH2903</option>';
+            CtryPcod_1_options_str  += '<option value="GH2904">GH2904</option>';
+            CtryPcod_1_options_str  += '<option value="GH2905">GH2905</option>';
+            CtryPcod_1_options_str  += '<option value="GH2906">GH2906</option>';
+            CtryPcod_1_options_str  += '<option value="GH2907">GH2907</option>';
+            CtryPcod_1_options_str  += '<option value="GH2908">GH2908</option>';
+            CtryPcod_1_options_str  += '<option value="GH2909">GH2909</option>';
+            CtryPcod_1_options_str  += '<option value="GH2910">GH2910</option>';
+            CtryPcod_1_options_str  += '<option value="GH2911">GH2911</option>';
+            CtryPcod_1_options_str  += '<option value="GH2912">GH2912</option>';
+            CtryPcod_1_options_str  += '<option value="GH2913">GH2913</option>';
+            CtryPcod_1_options_str  += '<option value="GH2914">GH2914</option>';
+            CtryPcod_1_options_str  += '<option value="GH2915">GH2915</option>';
+            CtryPcod_1_options_str  += '<option value="GH2916">GH2916</option>';
+            CtryPcod_1_options_str  += '<option value="GH2917">GH2917</option>';
+            CtryPcod_1_options_str  += '<option value="GH2918">GH2918</option>';
+            CtryPcod_1_options_str  += '<option value="GH2919">GH2919</option>';
+            CtryPcod_1_options_str  += '<option value="GH3001">GH3001</option>';
+            CtryPcod_1_options_str  += '<option value="GH3002">GH3002</option>';
+            CtryPcod_1_options_str  += '<option value="GH3003">GH3003</option>';
+            CtryPcod_1_options_str  += '<option value="GH3004">GH3004</option>';
+            CtryPcod_1_options_str  += '<option value="GH3005">GH3005</option>';
+            CtryPcod_1_options_str  += '<option value="GH3006">GH3006</option>';
+            CtryPcod_1_options_str  += '<option value="GH3007">GH3007</option>';
+            CtryPcod_1_options_str  += '<option value="GH3008">GH3008</option>';
+            CtryPcod_1_options_str  += '<option value="GH3101">GH3101</option>';
+            CtryPcod_1_options_str  += '<option value="GH3102">GH3102</option>';
+            CtryPcod_1_options_str  += '<option value="GH3103">GH3103</option>';
+            CtryPcod_1_options_str  += '<option value="GH3104">GH3104</option>';
+            CtryPcod_1_options_str  += '<option value="GH3105">GH3105</option>';
+            CtryPcod_1_options_str  += '<option value="GH3106">GH3106</option>';
+            CtryPcod_1_options_str  += '<option value="GH3107">GH3107</option>';
+            CtryPcod_1_options_str  += '<option value="GH3108">GH3108</option>';
+            CtryPcod_1_options_str  += '<option value="GH3201">GH3201</option>';
+            CtryPcod_1_options_str  += '<option value="GH3202">GH3202</option>';
+            CtryPcod_1_options_str  += '<option value="GH3203">GH3203</option>';
+            CtryPcod_1_options_str  += '<option value="GH3204">GH3204</option>';
+            CtryPcod_1_options_str  += '<option value="GH3205">GH3205</option>';
+            CtryPcod_1_options_str  += '<option value="GH3206">GH3206</option>';
+            CtryPcod_1_options_str  += '<option value="GH3207">GH3207</option>';
+            CtryPcod_1_options_str  += '<option value="GH3208">GH3208</option>';
+            CtryPcod_1_options_str  += '<option value="GH3209">GH3209</option>';
+            CtryPcod_1_options_str  += '<option value="GH3210">GH3210</option>';
+            CtryPcod_1_options_str  += '<option value="GH3211">GH3211</option>';
+            CtryPcod_1_options_str  += '<option value="GH3212">GH3212</option>';
+            CtryPcod_1_options_str  += '<option value="GH3213">GH3213</option>';
+            CtryPcod_1_options_str  += '<option value="GH3214">GH3214</option>';
+            CtryPcod_1_options_str  += '<option value="GH3215">GH3215</option>';
+            CtryPcod_1_options_str  += '<option value="GH3301">GH3301</option>';
+            CtryPcod_1_options_str  += '<option value="GH3302">GH3302</option>';
+            CtryPcod_1_options_str  += '<option value="GH3303">GH3303</option>';
+            CtryPcod_1_options_str  += '<option value="GH3304">GH3304</option>';
+            CtryPcod_1_options_str  += '<option value="GH3305">GH3305</option>';
+            CtryPcod_1_options_str  += '<option value="GH3306">GH3306</option>';
+            CtryPcod_1_options_str  += '<option value="GH3307">GH3307</option>';
+            CtryPcod_1_options_str  += '<option value="GH3308">GH3308</option>';
+            CtryPcod_1_options_str  += '<option value="GH3309">GH3309</option>';
+            CtryPcod_1_options_str  += '<option value="GH3310">GH3310</option>';
+            CtryPcod_1_options_str  += '<option value="GH3311">GH3311</option>';
+            CtryPcod_1_options_str  += '<option value="GH3312">GH3312</option>';
+            CtryPcod_1_options_str  += '<option value="GH3313">GH3313</option>';
+            CtryPcod_1_options_str  += '<option value="GM0101">GM0101</option>';
+            CtryPcod_1_options_str  += '<option value="GM0201">GM0201</option>';
+            CtryPcod_1_options_str  += '<option value="GM0202">GM0202</option>';
+            CtryPcod_1_options_str  += '<option value="GM0203">GM0203</option>';
+            CtryPcod_1_options_str  += '<option value="GM0204">GM0204</option>';
+            CtryPcod_1_options_str  += '<option value="GM0301">GM0301</option>';
+            CtryPcod_1_options_str  += '<option value="GM0302">GM0302</option>';
+            CtryPcod_1_options_str  += '<option value="GM0303">GM0303</option>';
+            CtryPcod_1_options_str  += '<option value="GM0304">GM0304</option>';
+            CtryPcod_1_options_str  += '<option value="GM0305">GM0305</option>';
+            CtryPcod_1_options_str  += '<option value="GM0306">GM0306</option>';
+            CtryPcod_1_options_str  += '<option value="GM0307">GM0307</option>';
+            CtryPcod_1_options_str  += '<option value="GM0308">GM0308</option>';
+            CtryPcod_1_options_str  += '<option value="GM0309">GM0309</option>';
+            CtryPcod_1_options_str  += '<option value="GM0401">GM0401</option>';
+            CtryPcod_1_options_str  += '<option value="GM0402">GM0402</option>';
+            CtryPcod_1_options_str  += '<option value="GM0403">GM0403</option>';
+            CtryPcod_1_options_str  += '<option value="GM0404">GM0404</option>';
+            CtryPcod_1_options_str  += '<option value="GM0405">GM0405</option>';
+            CtryPcod_1_options_str  += '<option value="GM0501">GM0501</option>';
+            CtryPcod_1_options_str  += '<option value="GM0601">GM0601</option>';
+            CtryPcod_1_options_str  += '<option value="GM0602">GM0602</option>';
+            CtryPcod_1_options_str  += '<option value="GM0603">GM0603</option>';
+            CtryPcod_1_options_str  += '<option value="GM0604">GM0604</option>';
+            CtryPcod_1_options_str  += '<option value="GM0605">GM0605</option>';
+            CtryPcod_1_options_str  += '<option value="GM0606">GM0606</option>';
+            CtryPcod_1_options_str  += '<option value="GM0701">GM0701</option>';
+            CtryPcod_1_options_str  += '<option value="GM0702">GM0702</option>';
+            CtryPcod_1_options_str  += '<option value="GM0703">GM0703</option>';
+            CtryPcod_1_options_str  += '<option value="GM0704">GM0704</option>';
+            CtryPcod_1_options_str  += '<option value="GM0705">GM0705</option>';
+            CtryPcod_1_options_str  += '<option value="GM0801">GM0801</option>';
+            CtryPcod_1_options_str  += '<option value="GM0802">GM0802</option>';
+            CtryPcod_1_options_str  += '<option value="GM0803">GM0803</option>';
+            CtryPcod_1_options_str  += '<option value="GM0804">GM0804</option>';
+            CtryPcod_1_options_str  += '<option value="GM0805">GM0805</option>';
+            CtryPcod_1_options_str  += '<option value="GM0806">GM0806</option>';
+            CtryPcod_1_options_str  += '<option value="GN0101">GN0101</option>';
+            CtryPcod_1_options_str  += '<option value="GN0102">GN0102</option>';
+            CtryPcod_1_options_str  += '<option value="GN0103">GN0103</option>';
+            CtryPcod_1_options_str  += '<option value="GN0104">GN0104</option>';
+            CtryPcod_1_options_str  += '<option value="GN0105">GN0105</option>';
+            CtryPcod_1_options_str  += '<option value="GN0201">GN0201</option>';
+            CtryPcod_1_options_str  += '<option value="GN0301">GN0301</option>';
+            CtryPcod_1_options_str  += '<option value="GN0302">GN0302</option>';
+            CtryPcod_1_options_str  += '<option value="GN0303">GN0303</option>';
+            CtryPcod_1_options_str  += '<option value="GN0304">GN0304</option>';
+            CtryPcod_1_options_str  += '<option value="GN0401">GN0401</option>';
+            CtryPcod_1_options_str  += '<option value="GN0402">GN0402</option>';
+            CtryPcod_1_options_str  += '<option value="GN0403">GN0403</option>';
+            CtryPcod_1_options_str  += '<option value="GN0404">GN0404</option>';
+            CtryPcod_1_options_str  += '<option value="GN0405">GN0405</option>';
+            CtryPcod_1_options_str  += '<option value="GN0501">GN0501</option>';
+            CtryPcod_1_options_str  += '<option value="GN0502">GN0502</option>';
+            CtryPcod_1_options_str  += '<option value="GN0503">GN0503</option>';
+            CtryPcod_1_options_str  += '<option value="GN0504">GN0504</option>';
+            CtryPcod_1_options_str  += '<option value="GN0505">GN0505</option>';
+            CtryPcod_1_options_str  += '<option value="GN0601">GN0601</option>';
+            CtryPcod_1_options_str  += '<option value="GN0602">GN0602</option>';
+            CtryPcod_1_options_str  += '<option value="GN0603">GN0603</option>';
+            CtryPcod_1_options_str  += '<option value="GN0604">GN0604</option>';
+            CtryPcod_1_options_str  += '<option value="GN0605">GN0605</option>';
+            CtryPcod_1_options_str  += '<option value="GN0701">GN0701</option>';
+            CtryPcod_1_options_str  += '<option value="GN0702">GN0702</option>';
+            CtryPcod_1_options_str  += '<option value="GN0703">GN0703</option>';
+            CtryPcod_1_options_str  += '<option value="GN0801">GN0801</option>';
+            CtryPcod_1_options_str  += '<option value="GN0802">GN0802</option>';
+            CtryPcod_1_options_str  += '<option value="GN0803">GN0803</option>';
+            CtryPcod_1_options_str  += '<option value="GN0804">GN0804</option>';
+            CtryPcod_1_options_str  += '<option value="GN0805">GN0805</option>';
+            CtryPcod_1_options_str  += '<option value="GN0806">GN0806</option>';
+            CtryPcod_1_options_str  += '<option value="GW0101">GW0101</option>';
+            CtryPcod_1_options_str  += '<option value="GW0102">GW0102</option>';
+            CtryPcod_1_options_str  += '<option value="GW0103">GW0103</option>';
+            CtryPcod_1_options_str  += '<option value="GW0104">GW0104</option>';
+            CtryPcod_1_options_str  += '<option value="GW0105">GW0105</option>';
+            CtryPcod_1_options_str  += '<option value="GW0106">GW0106</option>';
+            CtryPcod_1_options_str  += '<option value="GW0201">GW0201</option>';
+            CtryPcod_1_options_str  += '<option value="GW0202">GW0202</option>';
+            CtryPcod_1_options_str  += '<option value="GW0203">GW0203</option>';
+            CtryPcod_1_options_str  += '<option value="GW0301">GW0301</option>';
+            CtryPcod_1_options_str  += '<option value="GW0302">GW0302</option>';
+            CtryPcod_1_options_str  += '<option value="GW0303">GW0303</option>';
+            CtryPcod_1_options_str  += '<option value="GW0304">GW0304</option>';
+            CtryPcod_1_options_str  += '<option value="GW0401">GW0401</option>';
+            CtryPcod_1_options_str  += '<option value="GW0402">GW0402</option>';
+            CtryPcod_1_options_str  += '<option value="GW0403">GW0403</option>';
+            CtryPcod_1_options_str  += '<option value="GW0404">GW0404</option>';
+            CtryPcod_1_options_str  += '<option value="GW0405">GW0405</option>';
+            CtryPcod_1_options_str  += '<option value="GW0406">GW0406</option>';
+            CtryPcod_1_options_str  += '<option value="GW0501">GW0501</option>';
+            CtryPcod_1_options_str  += '<option value="GW0502">GW0502</option>';
+            CtryPcod_1_options_str  += '<option value="GW0503">GW0503</option>';
+            CtryPcod_1_options_str  += '<option value="GW0504">GW0504</option>';
+            CtryPcod_1_options_str  += '<option value="GW0505">GW0505</option>';
+            CtryPcod_1_options_str  += '<option value="GW0601">GW0601</option>';
+            CtryPcod_1_options_str  += '<option value="GW0602">GW0602</option>';
+            CtryPcod_1_options_str  += '<option value="GW0603">GW0603</option>';
+            CtryPcod_1_options_str  += '<option value="GW0604">GW0604</option>';
+            CtryPcod_1_options_str  += '<option value="GW0605">GW0605</option>';
+            CtryPcod_1_options_str  += '<option value="GW0701">GW0701</option>';
+            CtryPcod_1_options_str  += '<option value="GW0702">GW0702</option>';
+            CtryPcod_1_options_str  += '<option value="GW0703">GW0703</option>';
+            CtryPcod_1_options_str  += '<option value="GW0704">GW0704</option>';
+            CtryPcod_1_options_str  += '<option value="GW0800">GW0800</option>';
+            CtryPcod_1_options_str  += '<option value="GW0901">GW0901</option>';
+            CtryPcod_1_options_str  += '<option value="GW0902">GW0902</option>';
+            CtryPcod_1_options_str  += '<option value="GW0903">GW0903</option>';
+            CtryPcod_1_options_str  += '<option value="GW0904">GW0904</option>';
+            CtryPcod_1_options_str  += '<option value="GW0905">GW0905</option>';
+            CtryPcod_1_options_str  += '<option value="LR0101">LR0101</option>';
+            CtryPcod_1_options_str  += '<option value="LR0102">LR0102</option>';
+            CtryPcod_1_options_str  += '<option value="LR0103">LR0103</option>';
+            CtryPcod_1_options_str  += '<option value="LR0104">LR0104</option>';
+            CtryPcod_1_options_str  += '<option value="LR0201">LR0201</option>';
+            CtryPcod_1_options_str  += '<option value="LR0202">LR0202</option>';
+            CtryPcod_1_options_str  += '<option value="LR0203">LR0203</option>';
+            CtryPcod_1_options_str  += '<option value="LR0204">LR0204</option>';
+            CtryPcod_1_options_str  += '<option value="LR0205">LR0205</option>';
+            CtryPcod_1_options_str  += '<option value="LR0206">LR0206</option>';
+            CtryPcod_1_options_str  += '<option value="LR0207">LR0207</option>';
+            CtryPcod_1_options_str  += '<option value="LR0208">LR0208</option>';
+            CtryPcod_1_options_str  += '<option value="LR0209">LR0209</option>';
+            CtryPcod_1_options_str  += '<option value="LR0210">LR0210</option>';
+            CtryPcod_1_options_str  += '<option value="LR0211">LR0211</option>';
+            CtryPcod_1_options_str  += '<option value="LR0212">LR0212</option>';
+            CtryPcod_1_options_str  += '<option value="LR0301">LR0301</option>';
+            CtryPcod_1_options_str  += '<option value="LR0302">LR0302</option>';
+            CtryPcod_1_options_str  += '<option value="LR0303">LR0303</option>';
+            CtryPcod_1_options_str  += '<option value="LR0304">LR0304</option>';
+            CtryPcod_1_options_str  += '<option value="LR0305">LR0305</option>';
+            CtryPcod_1_options_str  += '<option value="LR0306">LR0306</option>';
+            CtryPcod_1_options_str  += '<option value="LR0402">LR0402</option>';
+            CtryPcod_1_options_str  += '<option value="LR0403">LR0403</option>';
+            CtryPcod_1_options_str  += '<option value="LR0404">LR0404</option>';
+            CtryPcod_1_options_str  += '<option value="LR0405">LR0405</option>';
+            CtryPcod_1_options_str  += '<option value="LR0406">LR0406</option>';
+            CtryPcod_1_options_str  += '<option value="LR0407">LR0407</option>';
+            CtryPcod_1_options_str  += '<option value="LR0408">LR0408</option>';
+            CtryPcod_1_options_str  += '<option value="LR0501">LR0501</option>';
+            CtryPcod_1_options_str  += '<option value="LR0502">LR0502</option>';
+            CtryPcod_1_options_str  += '<option value="LR0503">LR0503</option>';
+            CtryPcod_1_options_str  += '<option value="LR0504">LR0504</option>';
+            CtryPcod_1_options_str  += '<option value="LR0505">LR0505</option>';
+            CtryPcod_1_options_str  += '<option value="LR0601">LR0601</option>';
+            CtryPcod_1_options_str  += '<option value="LR0602">LR0602</option>';
+            CtryPcod_1_options_str  += '<option value="LR0603">LR0603</option>';
+            CtryPcod_1_options_str  += '<option value="LR0604">LR0604</option>';
+            CtryPcod_1_options_str  += '<option value="LR0605">LR0605</option>';
+            CtryPcod_1_options_str  += '<option value="LR0606">LR0606</option>';
+            CtryPcod_1_options_str  += '<option value="LR0607">LR0607</option>';
+            CtryPcod_1_options_str  += '<option value="LR0608">LR0608</option>';
+            CtryPcod_1_options_str  += '<option value="LR0701">LR0701</option>';
+            CtryPcod_1_options_str  += '<option value="LR0702">LR0702</option>';
+            CtryPcod_1_options_str  += '<option value="LR0703">LR0703</option>';
+            CtryPcod_1_options_str  += '<option value="LR0704">LR0704</option>';
+            CtryPcod_1_options_str  += '<option value="LR0705">LR0705</option>';
+            CtryPcod_1_options_str  += '<option value="LR0706">LR0706</option>';
+            CtryPcod_1_options_str  += '<option value="LR0707">LR0707</option>';
+            CtryPcod_1_options_str  += '<option value="LR0708">LR0708</option>';
+            CtryPcod_1_options_str  += '<option value="LR0709">LR0709</option>';
+            CtryPcod_1_options_str  += '<option value="LR0710">LR0710</option>';
+            CtryPcod_1_options_str  += '<option value="LR0711">LR0711</option>';
+            CtryPcod_1_options_str  += '<option value="LR0712">LR0712</option>';
+            CtryPcod_1_options_str  += '<option value="LR0713">LR0713</option>';
+            CtryPcod_1_options_str  += '<option value="LR0714">LR0714</option>';
+            CtryPcod_1_options_str  += '<option value="LR0715">LR0715</option>';
+            CtryPcod_1_options_str  += '<option value="LR0716">LR0716</option>';
+            CtryPcod_1_options_str  += '<option value="LR0717">LR0717</option>';
+            CtryPcod_1_options_str  += '<option value="LR0718">LR0718</option>';
+            CtryPcod_1_options_str  += '<option value="LR0801">LR0801</option>';
+            CtryPcod_1_options_str  += '<option value="LR0802">LR0802</option>';
+            CtryPcod_1_options_str  += '<option value="LR0803">LR0803</option>';
+            CtryPcod_1_options_str  += '<option value="LR0804">LR0804</option>';
+            CtryPcod_1_options_str  += '<option value="LR0805">LR0805</option>';
+            CtryPcod_1_options_str  += '<option value="LR0806">LR0806</option>';
+            CtryPcod_1_options_str  += '<option value="LR0807">LR0807</option>';
+            CtryPcod_1_options_str  += '<option value="LR0901">LR0901</option>';
+            CtryPcod_1_options_str  += '<option value="LR0902">LR0902</option>';
+            CtryPcod_1_options_str  += '<option value="LR0903">LR0903</option>';
+            CtryPcod_1_options_str  += '<option value="LR0904">LR0904</option>';
+            CtryPcod_1_options_str  += '<option value="LR1001">LR1001</option>';
+            CtryPcod_1_options_str  += '<option value="LR1002">LR1002</option>';
+            CtryPcod_1_options_str  += '<option value="LR1003">LR1003</option>';
+            CtryPcod_1_options_str  += '<option value="LR1004">LR1004</option>';
+            CtryPcod_1_options_str  += '<option value="LR1005">LR1005</option>';
+            CtryPcod_1_options_str  += '<option value="LR1006">LR1006</option>';
+            CtryPcod_1_options_str  += '<option value="LR1007">LR1007</option>';
+            CtryPcod_1_options_str  += '<option value="LR1101">LR1101</option>';
+            CtryPcod_1_options_str  += '<option value="LR1102">LR1102</option>';
+            CtryPcod_1_options_str  += '<option value="LR1103">LR1103</option>';
+            CtryPcod_1_options_str  += '<option value="LR1104">LR1104</option>';
+            CtryPcod_1_options_str  += '<option value="LR1105">LR1105</option>';
+            CtryPcod_1_options_str  += '<option value="LR1201">LR1201</option>';
+            CtryPcod_1_options_str  += '<option value="LR1202">LR1202</option>';
+            CtryPcod_1_options_str  += '<option value="LR1203">LR1203</option>';
+            CtryPcod_1_options_str  += '<option value="LR1204">LR1204</option>';
+            CtryPcod_1_options_str  += '<option value="LR1205">LR1205</option>';
+            CtryPcod_1_options_str  += '<option value="LR1206">LR1206</option>';
+            CtryPcod_1_options_str  += '<option value="LR1207">LR1207</option>';
+            CtryPcod_1_options_str  += '<option value="LR1209">LR1209</option>';
+            CtryPcod_1_options_str  += '<option value="LR1210">LR1210</option>';
+            CtryPcod_1_options_str  += '<option value="LR1211">LR1211</option>';
+            CtryPcod_1_options_str  += '<option value="LR1212">LR1212</option>';
+            CtryPcod_1_options_str  += '<option value="LR1213">LR1213</option>';
+            CtryPcod_1_options_str  += '<option value="LR1214">LR1214</option>';
+            CtryPcod_1_options_str  += '<option value="LR1215">LR1215</option>';
+            CtryPcod_1_options_str  += '<option value="LR1216">LR1216</option>';
+            CtryPcod_1_options_str  += '<option value="LR1217">LR1217</option>';
+            CtryPcod_1_options_str  += '<option value="LR1301">LR1301</option>';
+            CtryPcod_1_options_str  += '<option value="LR1302">LR1302</option>';
+            CtryPcod_1_options_str  += '<option value="LR1303">LR1303</option>';
+            CtryPcod_1_options_str  += '<option value="LR1304">LR1304</option>';
+            CtryPcod_1_options_str  += '<option value="LR1305">LR1305</option>';
+            CtryPcod_1_options_str  += '<option value="LR1306">LR1306</option>';
+            CtryPcod_1_options_str  += '<option value="LR1307">LR1307</option>';
+            CtryPcod_1_options_str  += '<option value="LR1308">LR1308</option>';
+            CtryPcod_1_options_str  += '<option value="LR1309">LR1309</option>';
+            CtryPcod_1_options_str  += '<option value="LR1310">LR1310</option>';
+            CtryPcod_1_options_str  += '<option value="LR1401">LR1401</option>';
+            CtryPcod_1_options_str  += '<option value="LR1402">LR1402</option>';
+            CtryPcod_1_options_str  += '<option value="LR1403">LR1403</option>';
+            CtryPcod_1_options_str  += '<option value="LR1404">LR1404</option>';
+            CtryPcod_1_options_str  += '<option value="LR1405">LR1405</option>';
+            CtryPcod_1_options_str  += '<option value="LR1406">LR1406</option>';
+            CtryPcod_1_options_str  += '<option value="LR1407">LR1407</option>';
+            CtryPcod_1_options_str  += '<option value="LR1408">LR1408</option>';
+            CtryPcod_1_options_str  += '<option value="LR1501">LR1501</option>';
+            CtryPcod_1_options_str  += '<option value="LR1502">LR1502</option>';
+            CtryPcod_1_options_str  += '<option value="LR1503">LR1503</option>';
+            CtryPcod_1_options_str  += '<option value="LR1504">LR1504</option>';
+            CtryPcod_1_options_str  += '<option value="LR1505">LR1505</option>';
+            CtryPcod_1_options_str  += '<option value="LR1506">LR1506</option>';
+            CtryPcod_1_options_str  += '<option value="LR1507">LR1507</option>';
+            CtryPcod_1_options_str  += '<option value="LR1508">LR1508</option>';
+            CtryPcod_1_options_str  += '<option value="LR1509">LR1509</option>';
+            CtryPcod_1_options_str  += '<option value="LR1510">LR1510</option>';
+            CtryPcod_1_options_str  += '<option value="LR1511">LR1511</option>';
+            CtryPcod_1_options_str  += '<option value="LR1512">LR1512</option>';
+            CtryPcod_1_options_str  += '<option value="LR1513">LR1513</option>';
+            CtryPcod_1_options_str  += '<option value="LR1514">LR1514</option>';
+            CtryPcod_1_options_str  += '<option value="LR1515">LR1515</option>';
+            CtryPcod_1_options_str  += '<option value="LR1516">LR1516</option>';
+            CtryPcod_1_options_str  += '<option value="LR1517">LR1517</option>';
+            CtryPcod_1_options_str  += '<option value="ML0101">ML0101</option>';
+            CtryPcod_1_options_str  += '<option value="ML0102">ML0102</option>';
+            CtryPcod_1_options_str  += '<option value="ML0103">ML0103</option>';
+            CtryPcod_1_options_str  += '<option value="ML0104">ML0104</option>';
+            CtryPcod_1_options_str  += '<option value="ML0105">ML0105</option>';
+            CtryPcod_1_options_str  += '<option value="ML0106">ML0106</option>';
+            CtryPcod_1_options_str  += '<option value="ML0107">ML0107</option>';
+            CtryPcod_1_options_str  += '<option value="ML0201">ML0201</option>';
+            CtryPcod_1_options_str  += '<option value="ML0202">ML0202</option>';
+            CtryPcod_1_options_str  += '<option value="ML0203">ML0203</option>';
+            CtryPcod_1_options_str  += '<option value="ML0204">ML0204</option>';
+            CtryPcod_1_options_str  += '<option value="ML0205">ML0205</option>';
+            CtryPcod_1_options_str  += '<option value="ML0206">ML0206</option>';
+            CtryPcod_1_options_str  += '<option value="ML0207">ML0207</option>';
+            CtryPcod_1_options_str  += '<option value="ML0301">ML0301</option>';
+            CtryPcod_1_options_str  += '<option value="ML0302">ML0302</option>';
+            CtryPcod_1_options_str  += '<option value="ML0303">ML0303</option>';
+            CtryPcod_1_options_str  += '<option value="ML0304">ML0304</option>';
+            CtryPcod_1_options_str  += '<option value="ML0305">ML0305</option>';
+            CtryPcod_1_options_str  += '<option value="ML0306">ML0306</option>';
+            CtryPcod_1_options_str  += '<option value="ML0307">ML0307</option>';
+            CtryPcod_1_options_str  += '<option value="ML0401">ML0401</option>';
+            CtryPcod_1_options_str  += '<option value="ML0402">ML0402</option>';
+            CtryPcod_1_options_str  += '<option value="ML0403">ML0403</option>';
+            CtryPcod_1_options_str  += '<option value="ML0404">ML0404</option>';
+            CtryPcod_1_options_str  += '<option value="ML0405">ML0405</option>';
+            CtryPcod_1_options_str  += '<option value="ML0406">ML0406</option>';
+            CtryPcod_1_options_str  += '<option value="ML0407">ML0407</option>';
+            CtryPcod_1_options_str  += '<option value="ML0501">ML0501</option>';
+            CtryPcod_1_options_str  += '<option value="ML0502">ML0502</option>';
+            CtryPcod_1_options_str  += '<option value="ML0503">ML0503</option>';
+            CtryPcod_1_options_str  += '<option value="ML0504">ML0504</option>';
+            CtryPcod_1_options_str  += '<option value="ML0505">ML0505</option>';
+            CtryPcod_1_options_str  += '<option value="ML0506">ML0506</option>';
+            CtryPcod_1_options_str  += '<option value="ML0507">ML0507</option>';
+            CtryPcod_1_options_str  += '<option value="ML0508">ML0508</option>';
+            CtryPcod_1_options_str  += '<option value="ML0601">ML0601</option>';
+            CtryPcod_1_options_str  += '<option value="ML0602">ML0602</option>';
+            CtryPcod_1_options_str  += '<option value="ML0603">ML0603</option>';
+            CtryPcod_1_options_str  += '<option value="ML0604">ML0604</option>';
+            CtryPcod_1_options_str  += '<option value="ML0605">ML0605</option>';
+            CtryPcod_1_options_str  += '<option value="ML0701">ML0701</option>';
+            CtryPcod_1_options_str  += '<option value="ML0702">ML0702</option>';
+            CtryPcod_1_options_str  += '<option value="ML0703">ML0703</option>';
+            CtryPcod_1_options_str  += '<option value="ML0704">ML0704</option>';
+            CtryPcod_1_options_str  += '<option value="ML0801">ML0801</option>';
+            CtryPcod_1_options_str  += '<option value="ML0802">ML0802</option>';
+            CtryPcod_1_options_str  += '<option value="ML0803">ML0803</option>';
+            CtryPcod_1_options_str  += '<option value="ML0804">ML0804</option>';
+            CtryPcod_1_options_str  += '<option value="ML0901">ML0901</option>';
+            CtryPcod_1_options_str  += '<option value="MR0101">MR0101</option>';
+            CtryPcod_1_options_str  += '<option value="MR0102">MR0102</option>';
+            CtryPcod_1_options_str  += '<option value="MR0103">MR0103</option>';
+            CtryPcod_1_options_str  += '<option value="MR0104">MR0104</option>';
+            CtryPcod_1_options_str  += '<option value="MR0201">MR0201</option>';
+            CtryPcod_1_options_str  += '<option value="MR0202">MR0202</option>';
+            CtryPcod_1_options_str  += '<option value="MR0203">MR0203</option>';
+            CtryPcod_1_options_str  += '<option value="MR0204">MR0204</option>';
+            CtryPcod_1_options_str  += '<option value="MR0205">MR0205</option>';
+            CtryPcod_1_options_str  += '<option value="MR0301">MR0301</option>';
+            CtryPcod_1_options_str  += '<option value="MR0302">MR0302</option>';
+            CtryPcod_1_options_str  += '<option value="MR0303">MR0303</option>';
+            CtryPcod_1_options_str  += '<option value="MR0304">MR0304</option>';
+            CtryPcod_1_options_str  += '<option value="MR0305">MR0305</option>';
+            CtryPcod_1_options_str  += '<option value="MR0401">MR0401</option>';
+            CtryPcod_1_options_str  += '<option value="MR0402">MR0402</option>';
+            CtryPcod_1_options_str  += '<option value="MR0501">MR0501</option>';
+            CtryPcod_1_options_str  += '<option value="MR0502">MR0502</option>';
+            CtryPcod_1_options_str  += '<option value="MR0503">MR0503</option>';
+            CtryPcod_1_options_str  += '<option value="MR0504">MR0504</option>';
+            CtryPcod_1_options_str  += '<option value="MR0601">MR0601</option>';
+            CtryPcod_1_options_str  += '<option value="MR0602">MR0602</option>';
+            CtryPcod_1_options_str  += '<option value="MR0701">MR0701</option>';
+            CtryPcod_1_options_str  += '<option value="MR0702">MR0702</option>';
+            CtryPcod_1_options_str  += '<option value="MR0703">MR0703</option>';
+            CtryPcod_1_options_str  += '<option value="MR0704">MR0704</option>';
+            CtryPcod_1_options_str  += '<option value="MR0705">MR0705</option>';
+            CtryPcod_1_options_str  += '<option value="MR0706">MR0706</option>';
+            CtryPcod_1_options_str  += '<option value="MR0707">MR0707</option>';
+            CtryPcod_1_options_str  += '<option value="MR0801">MR0801</option>';
+            CtryPcod_1_options_str  += '<option value="MR0802">MR0802</option>';
+            CtryPcod_1_options_str  += '<option value="MR0803">MR0803</option>';
+            CtryPcod_1_options_str  += '<option value="MR0804">MR0804</option>';
+            CtryPcod_1_options_str  += '<option value="MR0900">MR0900</option>';
+            CtryPcod_1_options_str  += '<option value="MR1001">MR1001</option>';
+            CtryPcod_1_options_str  += '<option value="MR1002">MR1002</option>';
+            CtryPcod_1_options_str  += '<option value="MR1003">MR1003</option>';
+            CtryPcod_1_options_str  += '<option value="MR1004">MR1004</option>';
+            CtryPcod_1_options_str  += '<option value="MR1005">MR1005</option>';
+            CtryPcod_1_options_str  += '<option value="MR1006">MR1006</option>';
+            CtryPcod_1_options_str  += '<option value="MR1007">MR1007</option>';
+            CtryPcod_1_options_str  += '<option value="MR1008">MR1008</option>';
+            CtryPcod_1_options_str  += '<option value="MR1009">MR1009</option>';
+            CtryPcod_1_options_str  += '<option value="MR1101">MR1101</option>';
+            CtryPcod_1_options_str  += '<option value="MR1102">MR1102</option>';
+            CtryPcod_1_options_str  += '<option value="MR1103">MR1103</option>';
+            CtryPcod_1_options_str  += '<option value="MR1201">MR1201</option>';
+            CtryPcod_1_options_str  += '<option value="MR1202">MR1202</option>';
+            CtryPcod_1_options_str  += '<option value="MR1203">MR1203</option>';
+            CtryPcod_1_options_str  += '<option value="MR1301">MR1301</option>';
+            CtryPcod_1_options_str  += '<option value="MR1302">MR1302</option>';
+            CtryPcod_1_options_str  += '<option value="MR1303">MR1303</option>';
+            CtryPcod_1_options_str  += '<option value="MR1304">MR1304</option>';
+            CtryPcod_1_options_str  += '<option value="MR1305">MR1305</option>';
+            CtryPcod_1_options_str  += '<option value="MR1306">MR1306</option>';
+            CtryPcod_1_options_str  += '<option value="NE001001">NE001001</option>';
+            CtryPcod_1_options_str  += '<option value="NE001002">NE001002</option>';
+            CtryPcod_1_options_str  += '<option value="NE001003">NE001003</option>';
+            CtryPcod_1_options_str  += '<option value="NE001004">NE001004</option>';
+            CtryPcod_1_options_str  += '<option value="NE001005">NE001005</option>';
+            CtryPcod_1_options_str  += '<option value="NE001006">NE001006</option>';
+            CtryPcod_1_options_str  += '<option value="NE002001">NE002001</option>';
+            CtryPcod_1_options_str  += '<option value="NE002002">NE002002</option>';
+            CtryPcod_1_options_str  += '<option value="NE002003">NE002003</option>';
+            CtryPcod_1_options_str  += '<option value="NE002004">NE002004</option>';
+            CtryPcod_1_options_str  += '<option value="NE002005">NE002005</option>';
+            CtryPcod_1_options_str  += '<option value="NE002006">NE002006</option>';
+            CtryPcod_1_options_str  += '<option value="NE003001">NE003001</option>';
+            CtryPcod_1_options_str  += '<option value="NE003002">NE003002</option>';
+            CtryPcod_1_options_str  += '<option value="NE003003">NE003003</option>';
+            CtryPcod_1_options_str  += '<option value="NE003004">NE003004</option>';
+            CtryPcod_1_options_str  += '<option value="NE003005">NE003005</option>';
+            CtryPcod_1_options_str  += '<option value="NE003006">NE003006</option>';
+            CtryPcod_1_options_str  += '<option value="NE003007">NE003007</option>';
+            CtryPcod_1_options_str  += '<option value="NE003008">NE003008</option>';
+            CtryPcod_1_options_str  += '<option value="NE004001">NE004001</option>';
+            CtryPcod_1_options_str  += '<option value="NE004002">NE004002</option>';
+            CtryPcod_1_options_str  += '<option value="NE004003">NE004003</option>';
+            CtryPcod_1_options_str  += '<option value="NE004004">NE004004</option>';
+            CtryPcod_1_options_str  += '<option value="NE004005">NE004005</option>';
+            CtryPcod_1_options_str  += '<option value="NE004006">NE004006</option>';
+            CtryPcod_1_options_str  += '<option value="NE004007">NE004007</option>';
+            CtryPcod_1_options_str  += '<option value="NE004008">NE004008</option>';
+            CtryPcod_1_options_str  += '<option value="NE004009">NE004009</option>';
+            CtryPcod_1_options_str  += '<option value="NE005001">NE005001</option>';
+            CtryPcod_1_options_str  += '<option value="NE005002">NE005002</option>';
+            CtryPcod_1_options_str  += '<option value="NE005003">NE005003</option>';
+            CtryPcod_1_options_str  += '<option value="NE005004">NE005004</option>';
+            CtryPcod_1_options_str  += '<option value="NE005005">NE005005</option>';
+            CtryPcod_1_options_str  += '<option value="NE005006">NE005006</option>';
+            CtryPcod_1_options_str  += '<option value="NE005007">NE005007</option>';
+            CtryPcod_1_options_str  += '<option value="NE005008">NE005008</option>';
+            CtryPcod_1_options_str  += '<option value="NE005009">NE005009</option>';
+            CtryPcod_1_options_str  += '<option value="NE005010">NE005010</option>';
+            CtryPcod_1_options_str  += '<option value="NE005011">NE005011</option>';
+            CtryPcod_1_options_str  += '<option value="NE005012">NE005012</option>';
+            CtryPcod_1_options_str  += '<option value="NE005013">NE005013</option>';
+            CtryPcod_1_options_str  += '<option value="NE006001">NE006001</option>';
+            CtryPcod_1_options_str  += '<option value="NE006002">NE006002</option>';
+            CtryPcod_1_options_str  += '<option value="NE006003">NE006003</option>';
+            CtryPcod_1_options_str  += '<option value="NE006004">NE006004</option>';
+            CtryPcod_1_options_str  += '<option value="NE006005">NE006005</option>';
+            CtryPcod_1_options_str  += '<option value="NE006006">NE006006</option>';
+            CtryPcod_1_options_str  += '<option value="NE006007">NE006007</option>';
+            CtryPcod_1_options_str  += '<option value="NE006008">NE006008</option>';
+            CtryPcod_1_options_str  += '<option value="NE006009">NE006009</option>';
+            CtryPcod_1_options_str  += '<option value="NE006010">NE006010</option>';
+            CtryPcod_1_options_str  += '<option value="NE006011">NE006011</option>';
+            CtryPcod_1_options_str  += '<option value="NE006012">NE006012</option>';
+            CtryPcod_1_options_str  += '<option value="NE006013">NE006013</option>';
+            CtryPcod_1_options_str  += '<option value="NE007001">NE007001</option>';
+            CtryPcod_1_options_str  += '<option value="NE007002">NE007002</option>';
+            CtryPcod_1_options_str  += '<option value="NE007003">NE007003</option>';
+            CtryPcod_1_options_str  += '<option value="NE007004">NE007004</option>';
+            CtryPcod_1_options_str  += '<option value="NE007005">NE007005</option>';
+            CtryPcod_1_options_str  += '<option value="NE007006">NE007006</option>';
+            CtryPcod_1_options_str  += '<option value="NE007007">NE007007</option>';
+            CtryPcod_1_options_str  += '<option value="NE007008">NE007008</option>';
+            CtryPcod_1_options_str  += '<option value="NE007009">NE007009</option>';
+            CtryPcod_1_options_str  += '<option value="NE007010">NE007010</option>';
+            CtryPcod_1_options_str  += '<option value="NE007011">NE007011</option>';
+            CtryPcod_1_options_str  += '<option value="NE008001">NE008001</option>';
+            CtryPcod_1_options_str  += '<option value="NG001001">NG001001</option>';
+            CtryPcod_1_options_str  += '<option value="NG001002">NG001002</option>';
+            CtryPcod_1_options_str  += '<option value="NG001003">NG001003</option>';
+            CtryPcod_1_options_str  += '<option value="NG001004">NG001004</option>';
+            CtryPcod_1_options_str  += '<option value="NG001005">NG001005</option>';
+            CtryPcod_1_options_str  += '<option value="NG001006">NG001006</option>';
+            CtryPcod_1_options_str  += '<option value="NG001007">NG001007</option>';
+            CtryPcod_1_options_str  += '<option value="NG001008">NG001008</option>';
+            CtryPcod_1_options_str  += '<option value="NG001009">NG001009</option>';
+            CtryPcod_1_options_str  += '<option value="NG001010">NG001010</option>';
+            CtryPcod_1_options_str  += '<option value="NG001011">NG001011</option>';
+            CtryPcod_1_options_str  += '<option value="NG001012">NG001012</option>';
+            CtryPcod_1_options_str  += '<option value="NG001013">NG001013</option>';
+            CtryPcod_1_options_str  += '<option value="NG001014">NG001014</option>';
+            CtryPcod_1_options_str  += '<option value="NG001015">NG001015</option>';
+            CtryPcod_1_options_str  += '<option value="NG001016">NG001016</option>';
+            CtryPcod_1_options_str  += '<option value="NG001017">NG001017</option>';
+            CtryPcod_1_options_str  += '<option value="NG002001">NG002001</option>';
+            CtryPcod_1_options_str  += '<option value="NG002002">NG002002</option>';
+            CtryPcod_1_options_str  += '<option value="NG002003">NG002003</option>';
+            CtryPcod_1_options_str  += '<option value="NG002004">NG002004</option>';
+            CtryPcod_1_options_str  += '<option value="NG002005">NG002005</option>';
+            CtryPcod_1_options_str  += '<option value="NG002006">NG002006</option>';
+            CtryPcod_1_options_str  += '<option value="NG002007">NG002007</option>';
+            CtryPcod_1_options_str  += '<option value="NG002008">NG002008</option>';
+            CtryPcod_1_options_str  += '<option value="NG002009">NG002009</option>';
+            CtryPcod_1_options_str  += '<option value="NG002010">NG002010</option>';
+            CtryPcod_1_options_str  += '<option value="NG002011">NG002011</option>';
+            CtryPcod_1_options_str  += '<option value="NG002012">NG002012</option>';
+            CtryPcod_1_options_str  += '<option value="NG002013">NG002013</option>';
+            CtryPcod_1_options_str  += '<option value="NG002014">NG002014</option>';
+            CtryPcod_1_options_str  += '<option value="NG002015">NG002015</option>';
+            CtryPcod_1_options_str  += '<option value="NG002016">NG002016</option>';
+            CtryPcod_1_options_str  += '<option value="NG002017">NG002017</option>';
+            CtryPcod_1_options_str  += '<option value="NG002018">NG002018</option>';
+            CtryPcod_1_options_str  += '<option value="NG002019">NG002019</option>';
+            CtryPcod_1_options_str  += '<option value="NG002020">NG002020</option>';
+            CtryPcod_1_options_str  += '<option value="NG002021">NG002021</option>';
+            CtryPcod_1_options_str  += '<option value="NG003001">NG003001</option>';
+            CtryPcod_1_options_str  += '<option value="NG003002">NG003002</option>';
+            CtryPcod_1_options_str  += '<option value="NG003003">NG003003</option>';
+            CtryPcod_1_options_str  += '<option value="NG003004">NG003004</option>';
+            CtryPcod_1_options_str  += '<option value="NG003005">NG003005</option>';
+            CtryPcod_1_options_str  += '<option value="NG003006">NG003006</option>';
+            CtryPcod_1_options_str  += '<option value="NG003007">NG003007</option>';
+            CtryPcod_1_options_str  += '<option value="NG003008">NG003008</option>';
+            CtryPcod_1_options_str  += '<option value="NG003009">NG003009</option>';
+            CtryPcod_1_options_str  += '<option value="NG003010">NG003010</option>';
+            CtryPcod_1_options_str  += '<option value="NG003011">NG003011</option>';
+            CtryPcod_1_options_str  += '<option value="NG003012">NG003012</option>';
+            CtryPcod_1_options_str  += '<option value="NG003013">NG003013</option>';
+            CtryPcod_1_options_str  += '<option value="NG003014">NG003014</option>';
+            CtryPcod_1_options_str  += '<option value="NG003015">NG003015</option>';
+            CtryPcod_1_options_str  += '<option value="NG003016">NG003016</option>';
+            CtryPcod_1_options_str  += '<option value="NG003017">NG003017</option>';
+            CtryPcod_1_options_str  += '<option value="NG003018">NG003018</option>';
+            CtryPcod_1_options_str  += '<option value="NG003019">NG003019</option>';
+            CtryPcod_1_options_str  += '<option value="NG003020">NG003020</option>';
+            CtryPcod_1_options_str  += '<option value="NG003021">NG003021</option>';
+            CtryPcod_1_options_str  += '<option value="NG003022">NG003022</option>';
+            CtryPcod_1_options_str  += '<option value="NG003023">NG003023</option>';
+            CtryPcod_1_options_str  += '<option value="NG003024">NG003024</option>';
+            CtryPcod_1_options_str  += '<option value="NG003025">NG003025</option>';
+            CtryPcod_1_options_str  += '<option value="NG003026">NG003026</option>';
+            CtryPcod_1_options_str  += '<option value="NG003027">NG003027</option>';
+            CtryPcod_1_options_str  += '<option value="NG003028">NG003028</option>';
+            CtryPcod_1_options_str  += '<option value="NG003029">NG003029</option>';
+            CtryPcod_1_options_str  += '<option value="NG003030">NG003030</option>';
+            CtryPcod_1_options_str  += '<option value="NG003031">NG003031</option>';
+            CtryPcod_1_options_str  += '<option value="NG004001">NG004001</option>';
+            CtryPcod_1_options_str  += '<option value="NG004002">NG004002</option>';
+            CtryPcod_1_options_str  += '<option value="NG004003">NG004003</option>';
+            CtryPcod_1_options_str  += '<option value="NG004004">NG004004</option>';
+            CtryPcod_1_options_str  += '<option value="NG004005">NG004005</option>';
+            CtryPcod_1_options_str  += '<option value="NG004006">NG004006</option>';
+            CtryPcod_1_options_str  += '<option value="NG004007">NG004007</option>';
+            CtryPcod_1_options_str  += '<option value="NG004008">NG004008</option>';
+            CtryPcod_1_options_str  += '<option value="NG004009">NG004009</option>';
+            CtryPcod_1_options_str  += '<option value="NG004010">NG004010</option>';
+            CtryPcod_1_options_str  += '<option value="NG004011">NG004011</option>';
+            CtryPcod_1_options_str  += '<option value="NG004012">NG004012</option>';
+            CtryPcod_1_options_str  += '<option value="NG004013">NG004013</option>';
+            CtryPcod_1_options_str  += '<option value="NG004014">NG004014</option>';
+            CtryPcod_1_options_str  += '<option value="NG004015">NG004015</option>';
+            CtryPcod_1_options_str  += '<option value="NG004016">NG004016</option>';
+            CtryPcod_1_options_str  += '<option value="NG004017">NG004017</option>';
+            CtryPcod_1_options_str  += '<option value="NG004018">NG004018</option>';
+            CtryPcod_1_options_str  += '<option value="NG004019">NG004019</option>';
+            CtryPcod_1_options_str  += '<option value="NG004020">NG004020</option>';
+            CtryPcod_1_options_str  += '<option value="NG004021">NG004021</option>';
+            CtryPcod_1_options_str  += '<option value="NG005001">NG005001</option>';
+            CtryPcod_1_options_str  += '<option value="NG005002">NG005002</option>';
+            CtryPcod_1_options_str  += '<option value="NG005003">NG005003</option>';
+            CtryPcod_1_options_str  += '<option value="NG005004">NG005004</option>';
+            CtryPcod_1_options_str  += '<option value="NG005005">NG005005</option>';
+            CtryPcod_1_options_str  += '<option value="NG005006">NG005006</option>';
+            CtryPcod_1_options_str  += '<option value="NG005007">NG005007</option>';
+            CtryPcod_1_options_str  += '<option value="NG005008">NG005008</option>';
+            CtryPcod_1_options_str  += '<option value="NG005009">NG005009</option>';
+            CtryPcod_1_options_str  += '<option value="NG005010">NG005010</option>';
+            CtryPcod_1_options_str  += '<option value="NG005011">NG005011</option>';
+            CtryPcod_1_options_str  += '<option value="NG005012">NG005012</option>';
+            CtryPcod_1_options_str  += '<option value="NG005013">NG005013</option>';
+            CtryPcod_1_options_str  += '<option value="NG005014">NG005014</option>';
+            CtryPcod_1_options_str  += '<option value="NG005015">NG005015</option>';
+            CtryPcod_1_options_str  += '<option value="NG005016">NG005016</option>';
+            CtryPcod_1_options_str  += '<option value="NG005017">NG005017</option>';
+            CtryPcod_1_options_str  += '<option value="NG005018">NG005018</option>';
+            CtryPcod_1_options_str  += '<option value="NG005019">NG005019</option>';
+            CtryPcod_1_options_str  += '<option value="NG005020">NG005020</option>';
+            CtryPcod_1_options_str  += '<option value="NG006001">NG006001</option>';
+            CtryPcod_1_options_str  += '<option value="NG006002">NG006002</option>';
+            CtryPcod_1_options_str  += '<option value="NG006003">NG006003</option>';
+            CtryPcod_1_options_str  += '<option value="NG006004">NG006004</option>';
+            CtryPcod_1_options_str  += '<option value="NG006005">NG006005</option>';
+            CtryPcod_1_options_str  += '<option value="NG006006">NG006006</option>';
+            CtryPcod_1_options_str  += '<option value="NG006007">NG006007</option>';
+            CtryPcod_1_options_str  += '<option value="NG006008">NG006008</option>';
+            CtryPcod_1_options_str  += '<option value="NG007001">NG007001</option>';
+            CtryPcod_1_options_str  += '<option value="NG007002">NG007002</option>';
+            CtryPcod_1_options_str  += '<option value="NG007003">NG007003</option>';
+            CtryPcod_1_options_str  += '<option value="NG007004">NG007004</option>';
+            CtryPcod_1_options_str  += '<option value="NG007005">NG007005</option>';
+            CtryPcod_1_options_str  += '<option value="NG007006">NG007006</option>';
+            CtryPcod_1_options_str  += '<option value="NG007007">NG007007</option>';
+            CtryPcod_1_options_str  += '<option value="NG007008">NG007008</option>';
+            CtryPcod_1_options_str  += '<option value="NG007009">NG007009</option>';
+            CtryPcod_1_options_str  += '<option value="NG007010">NG007010</option>';
+            CtryPcod_1_options_str  += '<option value="NG007011">NG007011</option>';
+            CtryPcod_1_options_str  += '<option value="NG007012">NG007012</option>';
+            CtryPcod_1_options_str  += '<option value="NG007013">NG007013</option>';
+            CtryPcod_1_options_str  += '<option value="NG007014">NG007014</option>';
+            CtryPcod_1_options_str  += '<option value="NG007015">NG007015</option>';
+            CtryPcod_1_options_str  += '<option value="NG007016">NG007016</option>';
+            CtryPcod_1_options_str  += '<option value="NG007017">NG007017</option>';
+            CtryPcod_1_options_str  += '<option value="NG007018">NG007018</option>';
+            CtryPcod_1_options_str  += '<option value="NG007019">NG007019</option>';
+            CtryPcod_1_options_str  += '<option value="NG007020">NG007020</option>';
+            CtryPcod_1_options_str  += '<option value="NG007021">NG007021</option>';
+            CtryPcod_1_options_str  += '<option value="NG007022">NG007022</option>';
+            CtryPcod_1_options_str  += '<option value="NG007023">NG007023</option>';
+            CtryPcod_1_options_str  += '<option value="NG008001">NG008001</option>';
+            CtryPcod_1_options_str  += '<option value="NG008002">NG008002</option>';
+            CtryPcod_1_options_str  += '<option value="NG008003">NG008003</option>';
+            CtryPcod_1_options_str  += '<option value="NG008004">NG008004</option>';
+            CtryPcod_1_options_str  += '<option value="NG008005">NG008005</option>';
+            CtryPcod_1_options_str  += '<option value="NG008006">NG008006</option>';
+            CtryPcod_1_options_str  += '<option value="NG008007">NG008007</option>';
+            CtryPcod_1_options_str  += '<option value="NG008008">NG008008</option>';
+            CtryPcod_1_options_str  += '<option value="NG008009">NG008009</option>';
+            CtryPcod_1_options_str  += '<option value="NG008010">NG008010</option>';
+            CtryPcod_1_options_str  += '<option value="NG008011">NG008011</option>';
+            CtryPcod_1_options_str  += '<option value="NG008012">NG008012</option>';
+            CtryPcod_1_options_str  += '<option value="NG008013">NG008013</option>';
+            CtryPcod_1_options_str  += '<option value="NG008014">NG008014</option>';
+            CtryPcod_1_options_str  += '<option value="NG008015">NG008015</option>';
+            CtryPcod_1_options_str  += '<option value="NG008016">NG008016</option>';
+            CtryPcod_1_options_str  += '<option value="NG008017">NG008017</option>';
+            CtryPcod_1_options_str  += '<option value="NG008018">NG008018</option>';
+            CtryPcod_1_options_str  += '<option value="NG008019">NG008019</option>';
+            CtryPcod_1_options_str  += '<option value="NG008020">NG008020</option>';
+            CtryPcod_1_options_str  += '<option value="NG008021">NG008021</option>';
+            CtryPcod_1_options_str  += '<option value="NG008022">NG008022</option>';
+            CtryPcod_1_options_str  += '<option value="NG008023">NG008023</option>';
+            CtryPcod_1_options_str  += '<option value="NG008024">NG008024</option>';
+            CtryPcod_1_options_str  += '<option value="NG008025">NG008025</option>';
+            CtryPcod_1_options_str  += '<option value="NG008026">NG008026</option>';
+            CtryPcod_1_options_str  += '<option value="NG008027">NG008027</option>';
+            CtryPcod_1_options_str  += '<option value="NG009001">NG009001</option>';
+            CtryPcod_1_options_str  += '<option value="NG009002">NG009002</option>';
+            CtryPcod_1_options_str  += '<option value="NG009003">NG009003</option>';
+            CtryPcod_1_options_str  += '<option value="NG009005">NG009005</option>';
+            CtryPcod_1_options_str  += '<option value="NG009006">NG009006</option>';
+            CtryPcod_1_options_str  += '<option value="NG009007">NG009007</option>';
+            CtryPcod_1_options_str  += '<option value="NG009008">NG009008</option>';
+            CtryPcod_1_options_str  += '<option value="NG009009">NG009009</option>';
+            CtryPcod_1_options_str  += '<option value="NG009010">NG009010</option>';
+            CtryPcod_1_options_str  += '<option value="NG009011">NG009011</option>';
+            CtryPcod_1_options_str  += '<option value="NG009012">NG009012</option>';
+            CtryPcod_1_options_str  += '<option value="NG009013">NG009013</option>';
+            CtryPcod_1_options_str  += '<option value="NG009014">NG009014</option>';
+            CtryPcod_1_options_str  += '<option value="NG009015">NG009015</option>';
+            CtryPcod_1_options_str  += '<option value="NG009016">NG009016</option>';
+            CtryPcod_1_options_str  += '<option value="NG009017">NG009017</option>';
+            CtryPcod_1_options_str  += '<option value="NG009018">NG009018</option>';
+            CtryPcod_1_options_str  += '<option value="NG009019">NG009019</option>';
+            CtryPcod_1_options_str  += '<option value="NG010001">NG010001</option>';
+            CtryPcod_1_options_str  += '<option value="NG010002">NG010002</option>';
+            CtryPcod_1_options_str  += '<option value="NG010003">NG010003</option>';
+            CtryPcod_1_options_str  += '<option value="NG010004">NG010004</option>';
+            CtryPcod_1_options_str  += '<option value="NG010005">NG010005</option>';
+            CtryPcod_1_options_str  += '<option value="NG010006">NG010006</option>';
+            CtryPcod_1_options_str  += '<option value="NG010007">NG010007</option>';
+            CtryPcod_1_options_str  += '<option value="NG010008">NG010008</option>';
+            CtryPcod_1_options_str  += '<option value="NG010009">NG010009</option>';
+            CtryPcod_1_options_str  += '<option value="NG010010">NG010010</option>';
+            CtryPcod_1_options_str  += '<option value="NG010011">NG010011</option>';
+            CtryPcod_1_options_str  += '<option value="NG010012">NG010012</option>';
+            CtryPcod_1_options_str  += '<option value="NG010013">NG010013</option>';
+            CtryPcod_1_options_str  += '<option value="NG010014">NG010014</option>';
+            CtryPcod_1_options_str  += '<option value="NG010015">NG010015</option>';
+            CtryPcod_1_options_str  += '<option value="NG010016">NG010016</option>';
+            CtryPcod_1_options_str  += '<option value="NG010017">NG010017</option>';
+            CtryPcod_1_options_str  += '<option value="NG010018">NG010018</option>';
+            CtryPcod_1_options_str  += '<option value="NG010019">NG010019</option>';
+            CtryPcod_1_options_str  += '<option value="NG010020">NG010020</option>';
+            CtryPcod_1_options_str  += '<option value="NG010021">NG010021</option>';
+            CtryPcod_1_options_str  += '<option value="NG010022">NG010022</option>';
+            CtryPcod_1_options_str  += '<option value="NG010023">NG010023</option>';
+            CtryPcod_1_options_str  += '<option value="NG010024">NG010024</option>';
+            CtryPcod_1_options_str  += '<option value="NG010025">NG010025</option>';
+            CtryPcod_1_options_str  += '<option value="NG011001">NG011001</option>';
+            CtryPcod_1_options_str  += '<option value="NG011002">NG011002</option>';
+            CtryPcod_1_options_str  += '<option value="NG011003">NG011003</option>';
+            CtryPcod_1_options_str  += '<option value="NG011004">NG011004</option>';
+            CtryPcod_1_options_str  += '<option value="NG011005">NG011005</option>';
+            CtryPcod_1_options_str  += '<option value="NG011006">NG011006</option>';
+            CtryPcod_1_options_str  += '<option value="NG011007">NG011007</option>';
+            CtryPcod_1_options_str  += '<option value="NG011008">NG011008</option>';
+            CtryPcod_1_options_str  += '<option value="NG011009">NG011009</option>';
+            CtryPcod_1_options_str  += '<option value="NG011010">NG011010</option>';
+            CtryPcod_1_options_str  += '<option value="NG011011">NG011011</option>';
+            CtryPcod_1_options_str  += '<option value="NG011012">NG011012</option>';
+            CtryPcod_1_options_str  += '<option value="NG011013">NG011013</option>';
+            CtryPcod_1_options_str  += '<option value="NG012001">NG012001</option>';
+            CtryPcod_1_options_str  += '<option value="NG012002">NG012002</option>';
+            CtryPcod_1_options_str  += '<option value="NG012003">NG012003</option>';
+            CtryPcod_1_options_str  += '<option value="NG012004">NG012004</option>';
+            CtryPcod_1_options_str  += '<option value="NG012005">NG012005</option>';
+            CtryPcod_1_options_str  += '<option value="NG012006">NG012006</option>';
+            CtryPcod_1_options_str  += '<option value="NG012007">NG012007</option>';
+            CtryPcod_1_options_str  += '<option value="NG012008">NG012008</option>';
+            CtryPcod_1_options_str  += '<option value="NG012009">NG012009</option>';
+            CtryPcod_1_options_str  += '<option value="NG012010">NG012010</option>';
+            CtryPcod_1_options_str  += '<option value="NG012011">NG012011</option>';
+            CtryPcod_1_options_str  += '<option value="NG012012">NG012012</option>';
+            CtryPcod_1_options_str  += '<option value="NG012013">NG012013</option>';
+            CtryPcod_1_options_str  += '<option value="NG012014">NG012014</option>';
+            CtryPcod_1_options_str  += '<option value="NG012015">NG012015</option>';
+            CtryPcod_1_options_str  += '<option value="NG012016">NG012016</option>';
+            CtryPcod_1_options_str  += '<option value="NG012017">NG012017</option>';
+            CtryPcod_1_options_str  += '<option value="NG012018">NG012018</option>';
+            CtryPcod_1_options_str  += '<option value="NG013001">NG013001</option>';
+            CtryPcod_1_options_str  += '<option value="NG013002">NG013002</option>';
+            CtryPcod_1_options_str  += '<option value="NG013003">NG013003</option>';
+            CtryPcod_1_options_str  += '<option value="NG013004">NG013004</option>';
+            CtryPcod_1_options_str  += '<option value="NG013005">NG013005</option>';
+            CtryPcod_1_options_str  += '<option value="NG013006">NG013006</option>';
+            CtryPcod_1_options_str  += '<option value="NG013007">NG013007</option>';
+            CtryPcod_1_options_str  += '<option value="NG013008">NG013008</option>';
+            CtryPcod_1_options_str  += '<option value="NG013009">NG013009</option>';
+            CtryPcod_1_options_str  += '<option value="NG013010">NG013010</option>';
+            CtryPcod_1_options_str  += '<option value="NG013011">NG013011</option>';
+            CtryPcod_1_options_str  += '<option value="NG013012">NG013012</option>';
+            CtryPcod_1_options_str  += '<option value="NG013013">NG013013</option>';
+            CtryPcod_1_options_str  += '<option value="NG013014">NG013014</option>';
+            CtryPcod_1_options_str  += '<option value="NG013015">NG013015</option>';
+            CtryPcod_1_options_str  += '<option value="NG013016">NG013016</option>';
+            CtryPcod_1_options_str  += '<option value="NG014001">NG014001</option>';
+            CtryPcod_1_options_str  += '<option value="NG014002">NG014002</option>';
+            CtryPcod_1_options_str  += '<option value="NG014003">NG014003</option>';
+            CtryPcod_1_options_str  += '<option value="NG014004">NG014004</option>';
+            CtryPcod_1_options_str  += '<option value="NG014005">NG014005</option>';
+            CtryPcod_1_options_str  += '<option value="NG014006">NG014006</option>';
+            CtryPcod_1_options_str  += '<option value="NG014007">NG014007</option>';
+            CtryPcod_1_options_str  += '<option value="NG014008">NG014008</option>';
+            CtryPcod_1_options_str  += '<option value="NG014009">NG014009</option>';
+            CtryPcod_1_options_str  += '<option value="NG014010">NG014010</option>';
+            CtryPcod_1_options_str  += '<option value="NG014011">NG014011</option>';
+            CtryPcod_1_options_str  += '<option value="NG014012">NG014012</option>';
+            CtryPcod_1_options_str  += '<option value="NG014013">NG014013</option>';
+            CtryPcod_1_options_str  += '<option value="NG014014">NG014014</option>';
+            CtryPcod_1_options_str  += '<option value="NG014015">NG014015</option>';
+            CtryPcod_1_options_str  += '<option value="NG014016">NG014016</option>';
+            CtryPcod_1_options_str  += '<option value="NG014017">NG014017</option>';
+            CtryPcod_1_options_str  += '<option value="NG015001">NG015001</option>';
+            CtryPcod_1_options_str  += '<option value="NG015002">NG015002</option>';
+            CtryPcod_1_options_str  += '<option value="NG015003">NG015003</option>';
+            CtryPcod_1_options_str  += '<option value="NG015004">NG015004</option>';
+            CtryPcod_1_options_str  += '<option value="NG015005">NG015005</option>';
+            CtryPcod_1_options_str  += '<option value="NG015006">NG015006</option>';
+            CtryPcod_1_options_str  += '<option value="NG016001">NG016001</option>';
+            CtryPcod_1_options_str  += '<option value="NG016002">NG016002</option>';
+            CtryPcod_1_options_str  += '<option value="NG016003">NG016003</option>';
+            CtryPcod_1_options_str  += '<option value="NG016004">NG016004</option>';
+            CtryPcod_1_options_str  += '<option value="NG016005">NG016005</option>';
+            CtryPcod_1_options_str  += '<option value="NG016006">NG016006</option>';
+            CtryPcod_1_options_str  += '<option value="NG016007">NG016007</option>';
+            CtryPcod_1_options_str  += '<option value="NG016008">NG016008</option>';
+            CtryPcod_1_options_str  += '<option value="NG016009">NG016009</option>';
+            CtryPcod_1_options_str  += '<option value="NG016010">NG016010</option>';
+            CtryPcod_1_options_str  += '<option value="NG016011">NG016011</option>';
+            CtryPcod_1_options_str  += '<option value="NG017001">NG017001</option>';
+            CtryPcod_1_options_str  += '<option value="NG017002">NG017002</option>';
+            CtryPcod_1_options_str  += '<option value="NG017003">NG017003</option>';
+            CtryPcod_1_options_str  += '<option value="NG017004">NG017004</option>';
+            CtryPcod_1_options_str  += '<option value="NG017005">NG017005</option>';
+            CtryPcod_1_options_str  += '<option value="NG017006">NG017006</option>';
+            CtryPcod_1_options_str  += '<option value="NG017007">NG017007</option>';
+            CtryPcod_1_options_str  += '<option value="NG017008">NG017008</option>';
+            CtryPcod_1_options_str  += '<option value="NG017009">NG017009</option>';
+            CtryPcod_1_options_str  += '<option value="NG017010">NG017010</option>';
+            CtryPcod_1_options_str  += '<option value="NG017011">NG017011</option>';
+            CtryPcod_1_options_str  += '<option value="NG017012">NG017012</option>';
+            CtryPcod_1_options_str  += '<option value="NG017013">NG017013</option>';
+            CtryPcod_1_options_str  += '<option value="NG017014">NG017014</option>';
+            CtryPcod_1_options_str  += '<option value="NG017015">NG017015</option>';
+            CtryPcod_1_options_str  += '<option value="NG017016">NG017016</option>';
+            CtryPcod_1_options_str  += '<option value="NG017017">NG017017</option>';
+            CtryPcod_1_options_str  += '<option value="NG017018">NG017018</option>';
+            CtryPcod_1_options_str  += '<option value="NG017019">NG017019</option>';
+            CtryPcod_1_options_str  += '<option value="NG017020">NG017020</option>';
+            CtryPcod_1_options_str  += '<option value="NG017021">NG017021</option>';
+            CtryPcod_1_options_str  += '<option value="NG017022">NG017022</option>';
+            CtryPcod_1_options_str  += '<option value="NG017023">NG017023</option>';
+            CtryPcod_1_options_str  += '<option value="NG017024">NG017024</option>';
+            CtryPcod_1_options_str  += '<option value="NG017025">NG017025</option>';
+            CtryPcod_1_options_str  += '<option value="NG017026">NG017026</option>';
+            CtryPcod_1_options_str  += '<option value="NG017027">NG017027</option>';
+            CtryPcod_1_options_str  += '<option value="NG018001">NG018001</option>';
+            CtryPcod_1_options_str  += '<option value="NG018002">NG018002</option>';
+            CtryPcod_1_options_str  += '<option value="NG018003">NG018003</option>';
+            CtryPcod_1_options_str  += '<option value="NG018004">NG018004</option>';
+            CtryPcod_1_options_str  += '<option value="NG018005">NG018005</option>';
+            CtryPcod_1_options_str  += '<option value="NG018006">NG018006</option>';
+            CtryPcod_1_options_str  += '<option value="NG018007">NG018007</option>';
+            CtryPcod_1_options_str  += '<option value="NG018008">NG018008</option>';
+            CtryPcod_1_options_str  += '<option value="NG018009">NG018009</option>';
+            CtryPcod_1_options_str  += '<option value="NG018010">NG018010</option>';
+            CtryPcod_1_options_str  += '<option value="NG018011">NG018011</option>';
+            CtryPcod_1_options_str  += '<option value="NG018012">NG018012</option>';
+            CtryPcod_1_options_str  += '<option value="NG018013">NG018013</option>';
+            CtryPcod_1_options_str  += '<option value="NG018014">NG018014</option>';
+            CtryPcod_1_options_str  += '<option value="NG018015">NG018015</option>';
+            CtryPcod_1_options_str  += '<option value="NG018016">NG018016</option>';
+            CtryPcod_1_options_str  += '<option value="NG018017">NG018017</option>';
+            CtryPcod_1_options_str  += '<option value="NG018018">NG018018</option>';
+            CtryPcod_1_options_str  += '<option value="NG018019">NG018019</option>';
+            CtryPcod_1_options_str  += '<option value="NG018020">NG018020</option>';
+            CtryPcod_1_options_str  += '<option value="NG018021">NG018021</option>';
+            CtryPcod_1_options_str  += '<option value="NG018022">NG018022</option>';
+            CtryPcod_1_options_str  += '<option value="NG018023">NG018023</option>';
+            CtryPcod_1_options_str  += '<option value="NG018024">NG018024</option>';
+            CtryPcod_1_options_str  += '<option value="NG018025">NG018025</option>';
+            CtryPcod_1_options_str  += '<option value="NG018026">NG018026</option>';
+            CtryPcod_1_options_str  += '<option value="NG018027">NG018027</option>';
+            CtryPcod_1_options_str  += '<option value="NG019001">NG019001</option>';
+            CtryPcod_1_options_str  += '<option value="NG019002">NG019002</option>';
+            CtryPcod_1_options_str  += '<option value="NG019003">NG019003</option>';
+            CtryPcod_1_options_str  += '<option value="NG019004">NG019004</option>';
+            CtryPcod_1_options_str  += '<option value="NG019005">NG019005</option>';
+            CtryPcod_1_options_str  += '<option value="NG019006">NG019006</option>';
+            CtryPcod_1_options_str  += '<option value="NG019007">NG019007</option>';
+            CtryPcod_1_options_str  += '<option value="NG019008">NG019008</option>';
+            CtryPcod_1_options_str  += '<option value="NG019009">NG019009</option>';
+            CtryPcod_1_options_str  += '<option value="NG019010">NG019010</option>';
+            CtryPcod_1_options_str  += '<option value="NG019011">NG019011</option>';
+            CtryPcod_1_options_str  += '<option value="NG019012">NG019012</option>';
+            CtryPcod_1_options_str  += '<option value="NG019013">NG019013</option>';
+            CtryPcod_1_options_str  += '<option value="NG019014">NG019014</option>';
+            CtryPcod_1_options_str  += '<option value="NG019015">NG019015</option>';
+            CtryPcod_1_options_str  += '<option value="NG019016">NG019016</option>';
+            CtryPcod_1_options_str  += '<option value="NG019017">NG019017</option>';
+            CtryPcod_1_options_str  += '<option value="NG019018">NG019018</option>';
+            CtryPcod_1_options_str  += '<option value="NG019019">NG019019</option>';
+            CtryPcod_1_options_str  += '<option value="NG019020">NG019020</option>';
+            CtryPcod_1_options_str  += '<option value="NG019021">NG019021</option>';
+            CtryPcod_1_options_str  += '<option value="NG019022">NG019022</option>';
+            CtryPcod_1_options_str  += '<option value="NG019023">NG019023</option>';
+            CtryPcod_1_options_str  += '<option value="NG020001">NG020001</option>';
+            CtryPcod_1_options_str  += '<option value="NG020002">NG020002</option>';
+            CtryPcod_1_options_str  += '<option value="NG020003">NG020003</option>';
+            CtryPcod_1_options_str  += '<option value="NG020004">NG020004</option>';
+            CtryPcod_1_options_str  += '<option value="NG020005">NG020005</option>';
+            CtryPcod_1_options_str  += '<option value="NG020006">NG020006</option>';
+            CtryPcod_1_options_str  += '<option value="NG020007">NG020007</option>';
+            CtryPcod_1_options_str  += '<option value="NG020008">NG020008</option>';
+            CtryPcod_1_options_str  += '<option value="NG020009">NG020009</option>';
+            CtryPcod_1_options_str  += '<option value="NG020010">NG020010</option>';
+            CtryPcod_1_options_str  += '<option value="NG020011">NG020011</option>';
+            CtryPcod_1_options_str  += '<option value="NG020012">NG020012</option>';
+            CtryPcod_1_options_str  += '<option value="NG020013">NG020013</option>';
+            CtryPcod_1_options_str  += '<option value="NG020014">NG020014</option>';
+            CtryPcod_1_options_str  += '<option value="NG020015">NG020015</option>';
+            CtryPcod_1_options_str  += '<option value="NG020016">NG020016</option>';
+            CtryPcod_1_options_str  += '<option value="NG020017">NG020017</option>';
+            CtryPcod_1_options_str  += '<option value="NG020018">NG020018</option>';
+            CtryPcod_1_options_str  += '<option value="NG020019">NG020019</option>';
+            CtryPcod_1_options_str  += '<option value="NG020020">NG020020</option>';
+            CtryPcod_1_options_str  += '<option value="NG020021">NG020021</option>';
+            CtryPcod_1_options_str  += '<option value="NG020022">NG020022</option>';
+            CtryPcod_1_options_str  += '<option value="NG020023">NG020023</option>';
+            CtryPcod_1_options_str  += '<option value="NG020024">NG020024</option>';
+            CtryPcod_1_options_str  += '<option value="NG020025">NG020025</option>';
+            CtryPcod_1_options_str  += '<option value="NG020026">NG020026</option>';
+            CtryPcod_1_options_str  += '<option value="NG020027">NG020027</option>';
+            CtryPcod_1_options_str  += '<option value="NG020028">NG020028</option>';
+            CtryPcod_1_options_str  += '<option value="NG020029">NG020029</option>';
+            CtryPcod_1_options_str  += '<option value="NG020030">NG020030</option>';
+            CtryPcod_1_options_str  += '<option value="NG020031">NG020031</option>';
+            CtryPcod_1_options_str  += '<option value="NG020032">NG020032</option>';
+            CtryPcod_1_options_str  += '<option value="NG020033">NG020033</option>';
+            CtryPcod_1_options_str  += '<option value="NG020034">NG020034</option>';
+            CtryPcod_1_options_str  += '<option value="NG020035">NG020035</option>';
+            CtryPcod_1_options_str  += '<option value="NG020036">NG020036</option>';
+            CtryPcod_1_options_str  += '<option value="NG020037">NG020037</option>';
+            CtryPcod_1_options_str  += '<option value="NG020038">NG020038</option>';
+            CtryPcod_1_options_str  += '<option value="NG020039">NG020039</option>';
+            CtryPcod_1_options_str  += '<option value="NG020040">NG020040</option>';
+            CtryPcod_1_options_str  += '<option value="NG020041">NG020041</option>';
+            CtryPcod_1_options_str  += '<option value="NG020042">NG020042</option>';
+            CtryPcod_1_options_str  += '<option value="NG020043">NG020043</option>';
+            CtryPcod_1_options_str  += '<option value="NG020044">NG020044</option>';
+            CtryPcod_1_options_str  += '<option value="NG021001">NG021001</option>';
+            CtryPcod_1_options_str  += '<option value="NG021002">NG021002</option>';
+            CtryPcod_1_options_str  += '<option value="NG021003">NG021003</option>';
+            CtryPcod_1_options_str  += '<option value="NG021004">NG021004</option>';
+            CtryPcod_1_options_str  += '<option value="NG021005">NG021005</option>';
+            CtryPcod_1_options_str  += '<option value="NG021006">NG021006</option>';
+            CtryPcod_1_options_str  += '<option value="NG021007">NG021007</option>';
+            CtryPcod_1_options_str  += '<option value="NG021008">NG021008</option>';
+            CtryPcod_1_options_str  += '<option value="NG021009">NG021009</option>';
+            CtryPcod_1_options_str  += '<option value="NG021010">NG021010</option>';
+            CtryPcod_1_options_str  += '<option value="NG021011">NG021011</option>';
+            CtryPcod_1_options_str  += '<option value="NG021012">NG021012</option>';
+            CtryPcod_1_options_str  += '<option value="NG021013">NG021013</option>';
+            CtryPcod_1_options_str  += '<option value="NG021014">NG021014</option>';
+            CtryPcod_1_options_str  += '<option value="NG021015">NG021015</option>';
+            CtryPcod_1_options_str  += '<option value="NG021016">NG021016</option>';
+            CtryPcod_1_options_str  += '<option value="NG021017">NG021017</option>';
+            CtryPcod_1_options_str  += '<option value="NG021018">NG021018</option>';
+            CtryPcod_1_options_str  += '<option value="NG021019">NG021019</option>';
+            CtryPcod_1_options_str  += '<option value="NG021020">NG021020</option>';
+            CtryPcod_1_options_str  += '<option value="NG021021">NG021021</option>';
+            CtryPcod_1_options_str  += '<option value="NG021022">NG021022</option>';
+            CtryPcod_1_options_str  += '<option value="NG021023">NG021023</option>';
+            CtryPcod_1_options_str  += '<option value="NG021024">NG021024</option>';
+            CtryPcod_1_options_str  += '<option value="NG021025">NG021025</option>';
+            CtryPcod_1_options_str  += '<option value="NG021026">NG021026</option>';
+            CtryPcod_1_options_str  += '<option value="NG021027">NG021027</option>';
+            CtryPcod_1_options_str  += '<option value="NG021028">NG021028</option>';
+            CtryPcod_1_options_str  += '<option value="NG021029">NG021029</option>';
+            CtryPcod_1_options_str  += '<option value="NG021030">NG021030</option>';
+            CtryPcod_1_options_str  += '<option value="NG021031">NG021031</option>';
+            CtryPcod_1_options_str  += '<option value="NG021032">NG021032</option>';
+            CtryPcod_1_options_str  += '<option value="NG021033">NG021033</option>';
+            CtryPcod_1_options_str  += '<option value="NG021034">NG021034</option>';
+            CtryPcod_1_options_str  += '<option value="NG022001">NG022001</option>';
+            CtryPcod_1_options_str  += '<option value="NG022002">NG022002</option>';
+            CtryPcod_1_options_str  += '<option value="NG022003">NG022003</option>';
+            CtryPcod_1_options_str  += '<option value="NG022004">NG022004</option>';
+            CtryPcod_1_options_str  += '<option value="NG022005">NG022005</option>';
+            CtryPcod_1_options_str  += '<option value="NG022006">NG022006</option>';
+            CtryPcod_1_options_str  += '<option value="NG022007">NG022007</option>';
+            CtryPcod_1_options_str  += '<option value="NG022008">NG022008</option>';
+            CtryPcod_1_options_str  += '<option value="NG022009">NG022009</option>';
+            CtryPcod_1_options_str  += '<option value="NG022010">NG022010</option>';
+            CtryPcod_1_options_str  += '<option value="NG022011">NG022011</option>';
+            CtryPcod_1_options_str  += '<option value="NG022012">NG022012</option>';
+            CtryPcod_1_options_str  += '<option value="NG022013">NG022013</option>';
+            CtryPcod_1_options_str  += '<option value="NG022014">NG022014</option>';
+            CtryPcod_1_options_str  += '<option value="NG022015">NG022015</option>';
+            CtryPcod_1_options_str  += '<option value="NG022016">NG022016</option>';
+            CtryPcod_1_options_str  += '<option value="NG022017">NG022017</option>';
+            CtryPcod_1_options_str  += '<option value="NG022018">NG022018</option>';
+            CtryPcod_1_options_str  += '<option value="NG022019">NG022019</option>';
+            CtryPcod_1_options_str  += '<option value="NG022020">NG022020</option>';
+            CtryPcod_1_options_str  += '<option value="NG022021">NG022021</option>';
+            CtryPcod_1_options_str  += '<option value="NG023001">NG023001</option>';
+            CtryPcod_1_options_str  += '<option value="NG023002">NG023002</option>';
+            CtryPcod_1_options_str  += '<option value="NG023003">NG023003</option>';
+            CtryPcod_1_options_str  += '<option value="NG023004">NG023004</option>';
+            CtryPcod_1_options_str  += '<option value="NG023005">NG023005</option>';
+            CtryPcod_1_options_str  += '<option value="NG023006">NG023006</option>';
+            CtryPcod_1_options_str  += '<option value="NG023007">NG023007</option>';
+            CtryPcod_1_options_str  += '<option value="NG023008">NG023008</option>';
+            CtryPcod_1_options_str  += '<option value="NG023009">NG023009</option>';
+            CtryPcod_1_options_str  += '<option value="NG023010">NG023010</option>';
+            CtryPcod_1_options_str  += '<option value="NG023011">NG023011</option>';
+            CtryPcod_1_options_str  += '<option value="NG023012">NG023012</option>';
+            CtryPcod_1_options_str  += '<option value="NG023013">NG023013</option>';
+            CtryPcod_1_options_str  += '<option value="NG023014">NG023014</option>';
+            CtryPcod_1_options_str  += '<option value="NG023015">NG023015</option>';
+            CtryPcod_1_options_str  += '<option value="NG023016">NG023016</option>';
+            CtryPcod_1_options_str  += '<option value="NG023017">NG023017</option>';
+            CtryPcod_1_options_str  += '<option value="NG023018">NG023018</option>';
+            CtryPcod_1_options_str  += '<option value="NG023019">NG023019</option>';
+            CtryPcod_1_options_str  += '<option value="NG023020">NG023020</option>';
+            CtryPcod_1_options_str  += '<option value="NG023021">NG023021</option>';
+            CtryPcod_1_options_str  += '<option value="NG024001">NG024001</option>';
+            CtryPcod_1_options_str  += '<option value="NG024002">NG024002</option>';
+            CtryPcod_1_options_str  += '<option value="NG024003">NG024003</option>';
+            CtryPcod_1_options_str  += '<option value="NG024004">NG024004</option>';
+            CtryPcod_1_options_str  += '<option value="NG024005">NG024005</option>';
+            CtryPcod_1_options_str  += '<option value="NG024006">NG024006</option>';
+            CtryPcod_1_options_str  += '<option value="NG024007">NG024007</option>';
+            CtryPcod_1_options_str  += '<option value="NG024008">NG024008</option>';
+            CtryPcod_1_options_str  += '<option value="NG024009">NG024009</option>';
+            CtryPcod_1_options_str  += '<option value="NG024010">NG024010</option>';
+            CtryPcod_1_options_str  += '<option value="NG024011">NG024011</option>';
+            CtryPcod_1_options_str  += '<option value="NG024012">NG024012</option>';
+            CtryPcod_1_options_str  += '<option value="NG024013">NG024013</option>';
+            CtryPcod_1_options_str  += '<option value="NG024014">NG024014</option>';
+            CtryPcod_1_options_str  += '<option value="NG024015">NG024015</option>';
+            CtryPcod_1_options_str  += '<option value="NG024016">NG024016</option>';
+            CtryPcod_1_options_str  += '<option value="NG025001">NG025001</option>';
+            CtryPcod_1_options_str  += '<option value="NG025002">NG025002</option>';
+            CtryPcod_1_options_str  += '<option value="NG025003">NG025003</option>';
+            CtryPcod_1_options_str  += '<option value="NG025004">NG025004</option>';
+            CtryPcod_1_options_str  += '<option value="NG025005">NG025005</option>';
+            CtryPcod_1_options_str  += '<option value="NG025006">NG025006</option>';
+            CtryPcod_1_options_str  += '<option value="NG025007">NG025007</option>';
+            CtryPcod_1_options_str  += '<option value="NG025008">NG025008</option>';
+            CtryPcod_1_options_str  += '<option value="NG025009">NG025009</option>';
+            CtryPcod_1_options_str  += '<option value="NG025010">NG025010</option>';
+            CtryPcod_1_options_str  += '<option value="NG025011">NG025011</option>';
+            CtryPcod_1_options_str  += '<option value="NG025012">NG025012</option>';
+            CtryPcod_1_options_str  += '<option value="NG025013">NG025013</option>';
+            CtryPcod_1_options_str  += '<option value="NG025014">NG025014</option>';
+            CtryPcod_1_options_str  += '<option value="NG025015">NG025015</option>';
+            CtryPcod_1_options_str  += '<option value="NG025016">NG025016</option>';
+            CtryPcod_1_options_str  += '<option value="NG025017">NG025017</option>';
+            CtryPcod_1_options_str  += '<option value="NG025018">NG025018</option>';
+            CtryPcod_1_options_str  += '<option value="NG025019">NG025019</option>';
+            CtryPcod_1_options_str  += '<option value="NG025020">NG025020</option>';
+            CtryPcod_1_options_str  += '<option value="NG026001">NG026001</option>';
+            CtryPcod_1_options_str  += '<option value="NG026002">NG026002</option>';
+            CtryPcod_1_options_str  += '<option value="NG026003">NG026003</option>';
+            CtryPcod_1_options_str  += '<option value="NG026004">NG026004</option>';
+            CtryPcod_1_options_str  += '<option value="NG026005">NG026005</option>';
+            CtryPcod_1_options_str  += '<option value="NG026006">NG026006</option>';
+            CtryPcod_1_options_str  += '<option value="NG026007">NG026007</option>';
+            CtryPcod_1_options_str  += '<option value="NG026008">NG026008</option>';
+            CtryPcod_1_options_str  += '<option value="NG026009">NG026009</option>';
+            CtryPcod_1_options_str  += '<option value="NG026010">NG026010</option>';
+            CtryPcod_1_options_str  += '<option value="NG026011">NG026011</option>';
+            CtryPcod_1_options_str  += '<option value="NG026012">NG026012</option>';
+            CtryPcod_1_options_str  += '<option value="NG026013">NG026013</option>';
+            CtryPcod_1_options_str  += '<option value="NG027001">NG027001</option>';
+            CtryPcod_1_options_str  += '<option value="NG027002">NG027002</option>';
+            CtryPcod_1_options_str  += '<option value="NG027003">NG027003</option>';
+            CtryPcod_1_options_str  += '<option value="NG027004">NG027004</option>';
+            CtryPcod_1_options_str  += '<option value="NG027005">NG027005</option>';
+            CtryPcod_1_options_str  += '<option value="NG027006">NG027006</option>';
+            CtryPcod_1_options_str  += '<option value="NG027007">NG027007</option>';
+            CtryPcod_1_options_str  += '<option value="NG027008">NG027008</option>';
+            CtryPcod_1_options_str  += '<option value="NG027009">NG027009</option>';
+            CtryPcod_1_options_str  += '<option value="NG027010">NG027010</option>';
+            CtryPcod_1_options_str  += '<option value="NG027011">NG027011</option>';
+            CtryPcod_1_options_str  += '<option value="NG027012">NG027012</option>';
+            CtryPcod_1_options_str  += '<option value="NG027013">NG027013</option>';
+            CtryPcod_1_options_str  += '<option value="NG027014">NG027014</option>';
+            CtryPcod_1_options_str  += '<option value="NG027015">NG027015</option>';
+            CtryPcod_1_options_str  += '<option value="NG027016">NG027016</option>';
+            CtryPcod_1_options_str  += '<option value="NG027017">NG027017</option>';
+            CtryPcod_1_options_str  += '<option value="NG027018">NG027018</option>';
+            CtryPcod_1_options_str  += '<option value="NG027019">NG027019</option>';
+            CtryPcod_1_options_str  += '<option value="NG027020">NG027020</option>';
+            CtryPcod_1_options_str  += '<option value="NG027021">NG027021</option>';
+            CtryPcod_1_options_str  += '<option value="NG027022">NG027022</option>';
+            CtryPcod_1_options_str  += '<option value="NG027023">NG027023</option>';
+            CtryPcod_1_options_str  += '<option value="NG027024">NG027024</option>';
+            CtryPcod_1_options_str  += '<option value="NG027025">NG027025</option>';
+            CtryPcod_1_options_str  += '<option value="NG028001">NG028001</option>';
+            CtryPcod_1_options_str  += '<option value="NG028002">NG028002</option>';
+            CtryPcod_1_options_str  += '<option value="NG028003">NG028003</option>';
+            CtryPcod_1_options_str  += '<option value="NG028004">NG028004</option>';
+            CtryPcod_1_options_str  += '<option value="NG028005">NG028005</option>';
+            CtryPcod_1_options_str  += '<option value="NG028006">NG028006</option>';
+            CtryPcod_1_options_str  += '<option value="NG028007">NG028007</option>';
+            CtryPcod_1_options_str  += '<option value="NG028008">NG028008</option>';
+            CtryPcod_1_options_str  += '<option value="NG028009">NG028009</option>';
+            CtryPcod_1_options_str  += '<option value="NG028010">NG028010</option>';
+            CtryPcod_1_options_str  += '<option value="NG028011">NG028011</option>';
+            CtryPcod_1_options_str  += '<option value="NG028012">NG028012</option>';
+            CtryPcod_1_options_str  += '<option value="NG028013">NG028013</option>';
+            CtryPcod_1_options_str  += '<option value="NG028014">NG028014</option>';
+            CtryPcod_1_options_str  += '<option value="NG028015">NG028015</option>';
+            CtryPcod_1_options_str  += '<option value="NG028016">NG028016</option>';
+            CtryPcod_1_options_str  += '<option value="NG028017">NG028017</option>';
+            CtryPcod_1_options_str  += '<option value="NG028018">NG028018</option>';
+            CtryPcod_1_options_str  += '<option value="NG028019">NG028019</option>';
+            CtryPcod_1_options_str  += '<option value="NG028020">NG028020</option>';
+            CtryPcod_1_options_str  += '<option value="NG029001">NG029001</option>';
+            CtryPcod_1_options_str  += '<option value="NG029002">NG029002</option>';
+            CtryPcod_1_options_str  += '<option value="NG029003">NG029003</option>';
+            CtryPcod_1_options_str  += '<option value="NG029004">NG029004</option>';
+            CtryPcod_1_options_str  += '<option value="NG029005">NG029005</option>';
+            CtryPcod_1_options_str  += '<option value="NG029006">NG029006</option>';
+            CtryPcod_1_options_str  += '<option value="NG029007">NG029007</option>';
+            CtryPcod_1_options_str  += '<option value="NG029008">NG029008</option>';
+            CtryPcod_1_options_str  += '<option value="NG029009">NG029009</option>';
+            CtryPcod_1_options_str  += '<option value="NG029010">NG029010</option>';
+            CtryPcod_1_options_str  += '<option value="NG029011">NG029011</option>';
+            CtryPcod_1_options_str  += '<option value="NG029012">NG029012</option>';
+            CtryPcod_1_options_str  += '<option value="NG029013">NG029013</option>';
+            CtryPcod_1_options_str  += '<option value="NG029014">NG029014</option>';
+            CtryPcod_1_options_str  += '<option value="NG029015">NG029015</option>';
+            CtryPcod_1_options_str  += '<option value="NG029016">NG029016</option>';
+            CtryPcod_1_options_str  += '<option value="NG029017">NG029017</option>';
+            CtryPcod_1_options_str  += '<option value="NG029018">NG029018</option>';
+            CtryPcod_1_options_str  += '<option value="NG030001">NG030001</option>';
+            CtryPcod_1_options_str  += '<option value="NG030002">NG030002</option>';
+            CtryPcod_1_options_str  += '<option value="NG030003">NG030003</option>';
+            CtryPcod_1_options_str  += '<option value="NG030004">NG030004</option>';
+            CtryPcod_1_options_str  += '<option value="NG030005">NG030005</option>';
+            CtryPcod_1_options_str  += '<option value="NG030006">NG030006</option>';
+            CtryPcod_1_options_str  += '<option value="NG030007">NG030007</option>';
+            CtryPcod_1_options_str  += '<option value="NG030008">NG030008</option>';
+            CtryPcod_1_options_str  += '<option value="NG030009">NG030009</option>';
+            CtryPcod_1_options_str  += '<option value="NG030010">NG030010</option>';
+            CtryPcod_1_options_str  += '<option value="NG030011">NG030011</option>';
+            CtryPcod_1_options_str  += '<option value="NG030012">NG030012</option>';
+            CtryPcod_1_options_str  += '<option value="NG030013">NG030013</option>';
+            CtryPcod_1_options_str  += '<option value="NG030014">NG030014</option>';
+            CtryPcod_1_options_str  += '<option value="NG030015">NG030015</option>';
+            CtryPcod_1_options_str  += '<option value="NG030016">NG030016</option>';
+            CtryPcod_1_options_str  += '<option value="NG030017">NG030017</option>';
+            CtryPcod_1_options_str  += '<option value="NG030018">NG030018</option>';
+            CtryPcod_1_options_str  += '<option value="NG030019">NG030019</option>';
+            CtryPcod_1_options_str  += '<option value="NG030020">NG030020</option>';
+            CtryPcod_1_options_str  += '<option value="NG030021">NG030021</option>';
+            CtryPcod_1_options_str  += '<option value="NG030022">NG030022</option>';
+            CtryPcod_1_options_str  += '<option value="NG030023">NG030023</option>';
+            CtryPcod_1_options_str  += '<option value="NG030024">NG030024</option>';
+            CtryPcod_1_options_str  += '<option value="NG030025">NG030025</option>';
+            CtryPcod_1_options_str  += '<option value="NG030026">NG030026</option>';
+            CtryPcod_1_options_str  += '<option value="NG030027">NG030027</option>';
+            CtryPcod_1_options_str  += '<option value="NG030028">NG030028</option>';
+            CtryPcod_1_options_str  += '<option value="NG030029">NG030029</option>';
+            CtryPcod_1_options_str  += '<option value="NG030030">NG030030</option>';
+            CtryPcod_1_options_str  += '<option value="NG031001">NG031001</option>';
+            CtryPcod_1_options_str  += '<option value="NG031002">NG031002</option>';
+            CtryPcod_1_options_str  += '<option value="NG031003">NG031003</option>';
+            CtryPcod_1_options_str  += '<option value="NG031004">NG031004</option>';
+            CtryPcod_1_options_str  += '<option value="NG031005">NG031005</option>';
+            CtryPcod_1_options_str  += '<option value="NG031006">NG031006</option>';
+            CtryPcod_1_options_str  += '<option value="NG031007">NG031007</option>';
+            CtryPcod_1_options_str  += '<option value="NG031008">NG031008</option>';
+            CtryPcod_1_options_str  += '<option value="NG031009">NG031009</option>';
+            CtryPcod_1_options_str  += '<option value="NG031010">NG031010</option>';
+            CtryPcod_1_options_str  += '<option value="NG031011">NG031011</option>';
+            CtryPcod_1_options_str  += '<option value="NG031012">NG031012</option>';
+            CtryPcod_1_options_str  += '<option value="NG031013">NG031013</option>';
+            CtryPcod_1_options_str  += '<option value="NG031014">NG031014</option>';
+            CtryPcod_1_options_str  += '<option value="NG031015">NG031015</option>';
+            CtryPcod_1_options_str  += '<option value="NG031016">NG031016</option>';
+            CtryPcod_1_options_str  += '<option value="NG031017">NG031017</option>';
+            CtryPcod_1_options_str  += '<option value="NG031018">NG031018</option>';
+            CtryPcod_1_options_str  += '<option value="NG031019">NG031019</option>';
+            CtryPcod_1_options_str  += '<option value="NG031020">NG031020</option>';
+            CtryPcod_1_options_str  += '<option value="NG031021">NG031021</option>';
+            CtryPcod_1_options_str  += '<option value="NG031022">NG031022</option>';
+            CtryPcod_1_options_str  += '<option value="NG031023">NG031023</option>';
+            CtryPcod_1_options_str  += '<option value="NG031024">NG031024</option>';
+            CtryPcod_1_options_str  += '<option value="NG031025">NG031025</option>';
+            CtryPcod_1_options_str  += '<option value="NG031026">NG031026</option>';
+            CtryPcod_1_options_str  += '<option value="NG031027">NG031027</option>';
+            CtryPcod_1_options_str  += '<option value="NG031028">NG031028</option>';
+            CtryPcod_1_options_str  += '<option value="NG031029">NG031029</option>';
+            CtryPcod_1_options_str  += '<option value="NG031030">NG031030</option>';
+            CtryPcod_1_options_str  += '<option value="NG031031">NG031031</option>';
+            CtryPcod_1_options_str  += '<option value="NG031032">NG031032</option>';
+            CtryPcod_1_options_str  += '<option value="NG031033">NG031033</option>';
+            CtryPcod_1_options_str  += '<option value="NG032001">NG032001</option>';
+            CtryPcod_1_options_str  += '<option value="NG032002">NG032002</option>';
+            CtryPcod_1_options_str  += '<option value="NG032003">NG032003</option>';
+            CtryPcod_1_options_str  += '<option value="NG032004">NG032004</option>';
+            CtryPcod_1_options_str  += '<option value="NG032005">NG032005</option>';
+            CtryPcod_1_options_str  += '<option value="NG032006">NG032006</option>';
+            CtryPcod_1_options_str  += '<option value="NG032007">NG032007</option>';
+            CtryPcod_1_options_str  += '<option value="NG032008">NG032008</option>';
+            CtryPcod_1_options_str  += '<option value="NG032009">NG032009</option>';
+            CtryPcod_1_options_str  += '<option value="NG032010">NG032010</option>';
+            CtryPcod_1_options_str  += '<option value="NG032011">NG032011</option>';
+            CtryPcod_1_options_str  += '<option value="NG032012">NG032012</option>';
+            CtryPcod_1_options_str  += '<option value="NG032013">NG032013</option>';
+            CtryPcod_1_options_str  += '<option value="NG032014">NG032014</option>';
+            CtryPcod_1_options_str  += '<option value="NG032015">NG032015</option>';
+            CtryPcod_1_options_str  += '<option value="NG032016">NG032016</option>';
+            CtryPcod_1_options_str  += '<option value="NG032017">NG032017</option>';
+            CtryPcod_1_options_str  += '<option value="NG033001">NG033001</option>';
+            CtryPcod_1_options_str  += '<option value="NG033002">NG033002</option>';
+            CtryPcod_1_options_str  += '<option value="NG033003">NG033003</option>';
+            CtryPcod_1_options_str  += '<option value="NG033004">NG033004</option>';
+            CtryPcod_1_options_str  += '<option value="NG033005">NG033005</option>';
+            CtryPcod_1_options_str  += '<option value="NG033006">NG033006</option>';
+            CtryPcod_1_options_str  += '<option value="NG033007">NG033007</option>';
+            CtryPcod_1_options_str  += '<option value="NG033008">NG033008</option>';
+            CtryPcod_1_options_str  += '<option value="NG033009">NG033009</option>';
+            CtryPcod_1_options_str  += '<option value="NG033010">NG033010</option>';
+            CtryPcod_1_options_str  += '<option value="NG033011">NG033011</option>';
+            CtryPcod_1_options_str  += '<option value="NG033012">NG033012</option>';
+            CtryPcod_1_options_str  += '<option value="NG033013">NG033013</option>';
+            CtryPcod_1_options_str  += '<option value="NG033014">NG033014</option>';
+            CtryPcod_1_options_str  += '<option value="NG033015">NG033015</option>';
+            CtryPcod_1_options_str  += '<option value="NG033016">NG033016</option>';
+            CtryPcod_1_options_str  += '<option value="NG033017">NG033017</option>';
+            CtryPcod_1_options_str  += '<option value="NG033018">NG033018</option>';
+            CtryPcod_1_options_str  += '<option value="NG033019">NG033019</option>';
+            CtryPcod_1_options_str  += '<option value="NG033020">NG033020</option>';
+            CtryPcod_1_options_str  += '<option value="NG033021">NG033021</option>';
+            CtryPcod_1_options_str  += '<option value="NG033022">NG033022</option>';
+            CtryPcod_1_options_str  += '<option value="NG033023">NG033023</option>';
+            CtryPcod_1_options_str  += '<option value="NG034001">NG034001</option>';
+            CtryPcod_1_options_str  += '<option value="NG034002">NG034002</option>';
+            CtryPcod_1_options_str  += '<option value="NG034003">NG034003</option>';
+            CtryPcod_1_options_str  += '<option value="NG034004">NG034004</option>';
+            CtryPcod_1_options_str  += '<option value="NG034005">NG034005</option>';
+            CtryPcod_1_options_str  += '<option value="NG034006">NG034006</option>';
+            CtryPcod_1_options_str  += '<option value="NG034007">NG034007</option>';
+            CtryPcod_1_options_str  += '<option value="NG034008">NG034008</option>';
+            CtryPcod_1_options_str  += '<option value="NG034009">NG034009</option>';
+            CtryPcod_1_options_str  += '<option value="NG034010">NG034010</option>';
+            CtryPcod_1_options_str  += '<option value="NG034011">NG034011</option>';
+            CtryPcod_1_options_str  += '<option value="NG034012">NG034012</option>';
+            CtryPcod_1_options_str  += '<option value="NG034013">NG034013</option>';
+            CtryPcod_1_options_str  += '<option value="NG034014">NG034014</option>';
+            CtryPcod_1_options_str  += '<option value="NG034015">NG034015</option>';
+            CtryPcod_1_options_str  += '<option value="NG034016">NG034016</option>';
+            CtryPcod_1_options_str  += '<option value="NG034017">NG034017</option>';
+            CtryPcod_1_options_str  += '<option value="NG034018">NG034018</option>';
+            CtryPcod_1_options_str  += '<option value="NG034019">NG034019</option>';
+            CtryPcod_1_options_str  += '<option value="NG034020">NG034020</option>';
+            CtryPcod_1_options_str  += '<option value="NG034021">NG034021</option>';
+            CtryPcod_1_options_str  += '<option value="NG034022">NG034022</option>';
+            CtryPcod_1_options_str  += '<option value="NG034023">NG034023</option>';
+            CtryPcod_1_options_str  += '<option value="NG035001">NG035001</option>';
+            CtryPcod_1_options_str  += '<option value="NG035002">NG035002</option>';
+            CtryPcod_1_options_str  += '<option value="NG035003">NG035003</option>';
+            CtryPcod_1_options_str  += '<option value="NG035004">NG035004</option>';
+            CtryPcod_1_options_str  += '<option value="NG035005">NG035005</option>';
+            CtryPcod_1_options_str  += '<option value="NG035006">NG035006</option>';
+            CtryPcod_1_options_str  += '<option value="NG035007">NG035007</option>';
+            CtryPcod_1_options_str  += '<option value="NG035008">NG035008</option>';
+            CtryPcod_1_options_str  += '<option value="NG035009">NG035009</option>';
+            CtryPcod_1_options_str  += '<option value="NG035010">NG035010</option>';
+            CtryPcod_1_options_str  += '<option value="NG035011">NG035011</option>';
+            CtryPcod_1_options_str  += '<option value="NG035012">NG035012</option>';
+            CtryPcod_1_options_str  += '<option value="NG035013">NG035013</option>';
+            CtryPcod_1_options_str  += '<option value="NG035014">NG035014</option>';
+            CtryPcod_1_options_str  += '<option value="NG035015">NG035015</option>';
+            CtryPcod_1_options_str  += '<option value="NG035016">NG035016</option>';
+            CtryPcod_1_options_str  += '<option value="NG036001">NG036001</option>';
+            CtryPcod_1_options_str  += '<option value="NG036002">NG036002</option>';
+            CtryPcod_1_options_str  += '<option value="NG036003">NG036003</option>';
+            CtryPcod_1_options_str  += '<option value="NG036004">NG036004</option>';
+            CtryPcod_1_options_str  += '<option value="NG036005">NG036005</option>';
+            CtryPcod_1_options_str  += '<option value="NG036006">NG036006</option>';
+            CtryPcod_1_options_str  += '<option value="NG036007">NG036007</option>';
+            CtryPcod_1_options_str  += '<option value="NG036008">NG036008</option>';
+            CtryPcod_1_options_str  += '<option value="NG036009">NG036009</option>';
+            CtryPcod_1_options_str  += '<option value="NG036010">NG036010</option>';
+            CtryPcod_1_options_str  += '<option value="NG036011">NG036011</option>';
+            CtryPcod_1_options_str  += '<option value="NG036012">NG036012</option>';
+            CtryPcod_1_options_str  += '<option value="NG036013">NG036013</option>';
+            CtryPcod_1_options_str  += '<option value="NG036014">NG036014</option>';
+            CtryPcod_1_options_str  += '<option value="NG036015">NG036015</option>';
+            CtryPcod_1_options_str  += '<option value="NG036016">NG036016</option>';
+            CtryPcod_1_options_str  += '<option value="NG036017">NG036017</option>';
+            CtryPcod_1_options_str  += '<option value="NG037001">NG037001</option>';
+            CtryPcod_1_options_str  += '<option value="NG037002">NG037002</option>';
+            CtryPcod_1_options_str  += '<option value="NG037003">NG037003</option>';
+            CtryPcod_1_options_str  += '<option value="NG037004">NG037004</option>';
+            CtryPcod_1_options_str  += '<option value="NG037005">NG037005</option>';
+            CtryPcod_1_options_str  += '<option value="NG037006">NG037006</option>';
+            CtryPcod_1_options_str  += '<option value="NG037007">NG037007</option>';
+            CtryPcod_1_options_str  += '<option value="NG037008">NG037008</option>';
+            CtryPcod_1_options_str  += '<option value="NG037009">NG037009</option>';
+            CtryPcod_1_options_str  += '<option value="NG037010">NG037010</option>';
+            CtryPcod_1_options_str  += '<option value="NG037011">NG037011</option>';
+            CtryPcod_1_options_str  += '<option value="NG037012">NG037012</option>';
+            CtryPcod_1_options_str  += '<option value="NG037013">NG037013</option>';
+            CtryPcod_1_options_str  += '<option value="NG037014">NG037014</option>';
+            CtryPcod_1_options_str  += '<option value="SL0101">SL0101</option>';
+            CtryPcod_1_options_str  += '<option value="SL0102">SL0102</option>';
+            CtryPcod_1_options_str  += '<option value="SL0103">SL0103</option>';
+            CtryPcod_1_options_str  += '<option value="SL0201">SL0201</option>';
+            CtryPcod_1_options_str  += '<option value="SL0202">SL0202</option>';
+            CtryPcod_1_options_str  += '<option value="SL0203">SL0203</option>';
+            CtryPcod_1_options_str  += '<option value="SL0204">SL0204</option>';
+            CtryPcod_1_options_str  += '<option value="SL0205">SL0205</option>';
+            CtryPcod_1_options_str  += '<option value="SL0301">SL0301</option>';
+            CtryPcod_1_options_str  += '<option value="SL0302">SL0302</option>';
+            CtryPcod_1_options_str  += '<option value="SL0303">SL0303</option>';
+            CtryPcod_1_options_str  += '<option value="SL0304">SL0304</option>';
+            CtryPcod_1_options_str  += '<option value="SL0401">SL0401</option>';
+            CtryPcod_1_options_str  += '<option value="SL0402">SL0402</option>';
+            CtryPcod_1_options_str  += '<option value="SN0101">SN0101</option>';
+            CtryPcod_1_options_str  += '<option value="SN0102">SN0102</option>';
+            CtryPcod_1_options_str  += '<option value="SN0103">SN0103</option>';
+            CtryPcod_1_options_str  += '<option value="SN0104">SN0104</option>';
+            CtryPcod_1_options_str  += '<option value="SN0201">SN0201</option>';
+            CtryPcod_1_options_str  += '<option value="SN0202">SN0202</option>';
+            CtryPcod_1_options_str  += '<option value="SN0203">SN0203</option>';
+            CtryPcod_1_options_str  += '<option value="SN0301">SN0301</option>';
+            CtryPcod_1_options_str  += '<option value="SN0302">SN0302</option>';
+            CtryPcod_1_options_str  += '<option value="SN0303">SN0303</option>';
+            CtryPcod_1_options_str  += '<option value="SN0401">SN0401</option>';
+            CtryPcod_1_options_str  += '<option value="SN0402">SN0402</option>';
+            CtryPcod_1_options_str  += '<option value="SN0403">SN0403</option>';
+            CtryPcod_1_options_str  += '<option value="SN0405">SN0405</option>';
+            CtryPcod_1_options_str  += '<option value="SN0501">SN0501</option>';
+            CtryPcod_1_options_str  += '<option value="SN0502">SN0502</option>';
+            CtryPcod_1_options_str  += '<option value="SN0503">SN0503</option>';
+            CtryPcod_1_options_str  += '<option value="SN0601">SN0601</option>';
+            CtryPcod_1_options_str  += '<option value="SN0602">SN0602</option>';
+            CtryPcod_1_options_str  += '<option value="SN0603">SN0603</option>';
+            CtryPcod_1_options_str  += '<option value="SN0701">SN0701</option>';
+            CtryPcod_1_options_str  += '<option value="SN0702">SN0702</option>';
+            CtryPcod_1_options_str  += '<option value="SN0703">SN0703</option>';
+            CtryPcod_1_options_str  += '<option value="SN0801">SN0801</option>';
+            CtryPcod_1_options_str  += '<option value="SN0802">SN0802</option>';
+            CtryPcod_1_options_str  += '<option value="SN0803">SN0803</option>';
+            CtryPcod_1_options_str  += '<option value="SN0901">SN0901</option>';
+            CtryPcod_1_options_str  += '<option value="SN0902">SN0902</option>';
+            CtryPcod_1_options_str  += '<option value="SN0903">SN0903</option>';
+            CtryPcod_1_options_str  += '<option value="SN1001">SN1001</option>';
+            CtryPcod_1_options_str  += '<option value="SN1002">SN1002</option>';
+            CtryPcod_1_options_str  += '<option value="SN1003">SN1003</option>';
+            CtryPcod_1_options_str  += '<option value="SN1101">SN1101</option>';
+            CtryPcod_1_options_str  += '<option value="SN1102">SN1102</option>';
+            CtryPcod_1_options_str  += '<option value="SN1103">SN1103</option>';
+            CtryPcod_1_options_str  += '<option value="SN1201">SN1201</option>';
+            CtryPcod_1_options_str  += '<option value="SN1202">SN1202</option>';
+            CtryPcod_1_options_str  += '<option value="SN1203">SN1203</option>';
+            CtryPcod_1_options_str  += '<option value="SN1204">SN1204</option>';
+            CtryPcod_1_options_str  += '<option value="SN1301">SN1301</option>';
+            CtryPcod_1_options_str  += '<option value="SN1302">SN1302</option>';
+            CtryPcod_1_options_str  += '<option value="SN1303">SN1303</option>';
+            CtryPcod_1_options_str  += '<option value="SN1401">SN1401</option>';
+            CtryPcod_1_options_str  += '<option value="SN1402">SN1402</option>';
+            CtryPcod_1_options_str  += '<option value="SN1403">SN1403</option>';
+            CtryPcod_1_options_str  += '<option value="TG0101">TG0101</option>';
+            CtryPcod_1_options_str  += '<option value="TG0102">TG0102</option>';
+            CtryPcod_1_options_str  += '<option value="TG0103">TG0103</option>';
+            CtryPcod_1_options_str  += '<option value="TG0104">TG0104</option>';
+            CtryPcod_1_options_str  += '<option value="TG0201">TG0201</option>';
+            CtryPcod_1_options_str  += '<option value="TG0202">TG0202</option>';
+            CtryPcod_1_options_str  += '<option value="TG0203">TG0203</option>';
+            CtryPcod_1_options_str  += '<option value="TG0204">TG0204</option>';
+            CtryPcod_1_options_str  += '<option value="TG0205">TG0205</option>';
+            CtryPcod_1_options_str  += '<option value="TG0206">TG0206</option>';
+            CtryPcod_1_options_str  += '<option value="TG0207">TG0207</option>';
+            CtryPcod_1_options_str  += '<option value="TG0301">TG0301</option>';
+            CtryPcod_1_options_str  += '<option value="TG0302">TG0302</option>';
+            CtryPcod_1_options_str  += '<option value="TG0303">TG0303</option>';
+            CtryPcod_1_options_str  += '<option value="TG0304">TG0304</option>';
+            CtryPcod_1_options_str  += '<option value="TG0305">TG0305</option>';
+            CtryPcod_1_options_str  += '<option value="TG0306">TG0306</option>';
+            CtryPcod_1_options_str  += '<option value="TG0401">TG0401</option>';
+            CtryPcod_1_options_str  += '<option value="TG0402">TG0402</option>';
+            CtryPcod_1_options_str  += '<option value="TG0403">TG0403</option>';
+            CtryPcod_1_options_str  += '<option value="TG0404">TG0404</option>';
+            CtryPcod_1_options_str  += '<option value="TG0405">TG0405</option>';
+            CtryPcod_1_options_str  += '<option value="TG0406">TG0406</option>';
+            CtryPcod_1_options_str  += '<option value="TG0407">TG0407</option>';
+            CtryPcod_1_options_str  += '<option value="TG0408">TG0408</option>';
+            CtryPcod_1_options_str  += '<option value="TG0409">TG0409</option>';
+            CtryPcod_1_options_str  += '<option value="TG0501">TG0501</option>';
+            CtryPcod_1_options_str  += '<option value="TG0502">TG0502</option>';
+            CtryPcod_1_options_str  += '<option value="TG0503">TG0503</option>';
+            CtryPcod_1_options_str  += '<option value="TG0504">TG0504</option>';
+            sel_CtryPcod_1.innerHTML = CtryPcod_1_options_str;
+            div_CtryPcod_1.appendChild(sel_CtryPcod_1);
+            var lab_CtryPcod_1 = document.createElement('div');
+            lab_CtryPcod_1.innerHTML = 'CtryPcod_1';
+            lab_CtryPcod_1.className = 'filterlabel';
+            div_CtryPcod_1.appendChild(lab_CtryPcod_1);
+            var reset_CtryPcod_1 = document.createElement('div');
+            reset_CtryPcod_1.innerHTML = 'clear filter';
+            reset_CtryPcod_1.className = 'filterlabel';
+            reset_CtryPcod_1.onclick = function() {
+                var options = document.getElementById("sel_CtryPcod_1").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_CtryPcod_1.appendChild(reset_CtryPcod_1);
+        </script>
+    </body>
+</html>
